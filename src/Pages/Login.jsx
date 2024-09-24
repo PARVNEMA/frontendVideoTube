@@ -1,39 +1,45 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
-
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { LoginUser } from "../store/authActions";
+import { useCookies } from "react-cookie";
 function Login() {
     const { register, handleSubmit } = useForm();
+    const [cookies, setCookie, removeCookie] = useCookies([
+        "accessToken,refreshToken",
+    ]);
+    const { loading, userInfo, error, success } = useSelector(
+        (state) => state.auth
+    );
+    const userObject = { id: 1 };
+    const dispatch = useDispatch();
 
     const submitForm = (data) => {
-        console.log(data.email);
+        data.email = data.email.toLowerCase();
+        dispatch(LoginUser(data));
     };
+
+    console.log("loginwala", userInfo);
+  
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (userInfo) {
+            // Set cookies if userInfo is available and contains tokens
+            setCookie("accessToken", userInfo.data.accessToken, {
+                path: "/",
+            });
+            setCookie("refreshToken", userInfo.data.refreshToken, {
+                path: "/",
+            });
+            console.log(userInfo.data.accessToken);
+
+            navigate("/userprofile"); // Redirect to user profile after successful login
+        }
+    }, [navigate, userInfo, success]);
     return (
-        // <>
-        //     <form onSubmit={handleSubmit(submitForm)}>
-        //         <div className="form-group">
-        //             <label htmlFor="email">Email</label>
-        //             <input
-        //                 type="email"
-        //                 className="form-input"
-        //                 {...register("email")}
-        //                 required
-        //             />
-        //         </div>
-        //         <div className="form-group">
-        //             <label htmlFor="password">Password</label>
-        //             <input
-        //                 type="password"
-        //                 className="form-input"
-        //                 {...register("password")}
-        //                 required
-        //             />
-        //         </div>
-        //         <button type="submit" className="button">
-        //             Login
-        //         </button>
-        //     </form>
-        // </>
         <>
             <section className="bg-white dark:bg-gray-900">
                 <div className=" lg:min-h-screen flex items-center justify-center ">

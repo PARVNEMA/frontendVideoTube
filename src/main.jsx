@@ -16,7 +16,10 @@ import {
 import Errorpage from "./utility/Errorpage.jsx";
 import Login from "./Pages/Login.jsx";
 import Signup from "./Pages/Signup.jsx";
-
+import UserProfile from "./Pages/userProfile.jsx";
+import Videos from "./Pages/Videos.jsx";
+import { CookiesProvider } from "react-cookie";
+import PostVideo from "./Pages/PostVideo.jsx";
 const router = createBrowserRouter([
     {
         path: "/",
@@ -25,13 +28,21 @@ const router = createBrowserRouter([
             { path: "/", element: <Errorpage /> },
             { path: "/login", element: <Login /> },
             { path: "/signup", element: <Signup /> },
+            { path: "/userprofile", element: <UserProfile /> },
+            {
+                path: "/home",
+                element: <Videos />,
+                children: [{ path: "/postvideo", element: <PostVideo /> }],
+            },
         ],
     },
 ]);
 createRoot(document.getElementById("root")).render(
     <StrictMode>
-        <Provider store={store}>
-            <RouterProvider router={router} />
-        </Provider>
+        <CookiesProvider defaultSetOptions={{ path: "/" }}>
+            <Provider store={store}>
+                <RouterProvider router={router} />
+            </Provider>
+        </CookiesProvider>
     </StrictMode>
 );

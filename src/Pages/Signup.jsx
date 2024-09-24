@@ -1,12 +1,30 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import { registerUser } from "../store/authActions";
 function Signup() {
     const { register, handleSubmit } = useForm();
 
+    const { loading, userInfo, error, success } = useSelector(
+        (state) => state.auth
+    );
+
+    const dispatch = useDispatch();
+
     const submitForm = (data) => {
+        data.email = data.email.toLowerCase();
+        dispatch(registerUser(data));
+        console.log("====================================", typeof data);
         console.log(data);
+        console.log("====================================");
     };
+    const navigate = useNavigate();
+    useEffect(() => {
+        if (success) navigate("/login");
+
+        if (userInfo) navigate("/userProfile");
+    }, [navigate, userInfo, success]);
     return (
         <>
             <section className="bg-white dark:bg-gray-900">
@@ -82,7 +100,6 @@ function Signup() {
                                         {...register("email")}
                                     />
                                 </div>
-
                                 <div className="col-span-6 sm:col-span-4">
                                     <label
                                         htmlFor="Password"
@@ -97,6 +114,22 @@ function Signup() {
                                         name="password"
                                         className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 py-2 px-2"
                                         {...register("password")}
+                                    />
+                                </div>
+                                <div className="col-span-6 sm:col-span-4">
+                                    <label
+                                        htmlFor="avatar"
+                                        className="block text-sm font-medium text-gray-700 dark:text-gray-200"
+                                    >
+                                        Avatar
+                                    </label>
+
+                                    <input
+                                        type="file"
+                                        id="avatar"
+                                        name="avatar"
+                                        className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 py-2 px-2"
+                                        {...register("avatar")}
                                     />
                                 </div>
 
