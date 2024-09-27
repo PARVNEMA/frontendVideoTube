@@ -20,6 +20,7 @@ import UserProfile from "./Pages/userProfile.jsx";
 import Videos from "./Pages/Videos.jsx";
 import { CookiesProvider } from "react-cookie";
 import PostVideo from "./Pages/PostVideo.jsx";
+import DetailedVideo from "./Pages/DetailedVideo.jsx";
 const router = createBrowserRouter([
     {
         path: "/",
@@ -29,11 +30,9 @@ const router = createBrowserRouter([
             { path: "/login", element: <Login /> },
             { path: "/signup", element: <Signup /> },
             { path: "/userprofile", element: <UserProfile /> },
-            {
-                path: "/home",
-                element: <Videos />,
-                children: [{ path: "/postvideo", element: <PostVideo /> }],
-            },
+            { path: "/home", element: <Videos /> },
+            { path: "/publishvideo", element: <PostVideo /> },
+            { path: "/video/:videoid", element: <DetailedVideo /> },
         ],
     },
 ]);

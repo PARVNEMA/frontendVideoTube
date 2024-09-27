@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function VideoCard({ video }) {
     return (
@@ -21,14 +22,14 @@ function VideoCard({ video }) {
                     <span>{video.views} views</span> •{" "}
                     <span>Duration: {video.duration.toFixed(2)} sec</span>
                 </div>
-                <a
-                    href={video.videoFile}
+                <Link
+                    to={`/video/${video._id}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-blue-500 hover:underline"
                 >
                     Watch Video
-                </a>
+                </Link>
             </div>
         </div>
     );
