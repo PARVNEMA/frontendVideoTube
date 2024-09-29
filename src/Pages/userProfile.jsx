@@ -6,6 +6,7 @@ function UserProfile() {
     const { loading, userInfo, error, success } = useSelector(
         (state) => state.auth
     );
+    console.log("userInfo is", userInfo);
 
     return (
         <>
@@ -14,28 +15,28 @@ function UserProfile() {
                     <div className=" h-32 overflow-hidden">
                         <img
                             className="w-full"
-                            src={userInfo.data.user.coverImage}
+                            src={userInfo?.data.user.coverImage}
                             alt=""
                         />
                     </div>
                     <div className="flex justify-center px-5  -mt-12">
                         <img
                             className="h-32 w-32 bg-white p-2 rounded-full   "
-                            src={userInfo.data.user.avatar}
+                            src={userInfo?.data.user.avatar}
                             alt=""
                         />
                     </div>
                     <div className=" ">
                         <div className="text-center px-14">
                             <h2 className="text-gray-800 text-3xl font-bold">
-                                {userInfo.data.user.username}
+                                {userInfo?.data.user.username}
                             </h2>
                             <a
                                 className="text-gray-400 mt-2 hover:text-blue-500"
                                 href="https://www.instagram.com/immohitdhiman/"
                                 target="BLANK()"
                             >
-                                {userInfo.data.user.fullName}
+                                {userInfo?.data.user.fullName}
                             </a>
                             <p className="mt-2 text-gray-500 text-sm">
                                 Lorem Ipsum is simply dummy text of the printing

@@ -17,14 +17,10 @@ function Signup() {
         dispatch(registerUser(data));
         console.log("====================================", typeof data);
         console.log(data);
-        console.log("====================================");
+        navigate("/login");
     };
     const navigate = useNavigate();
-    useEffect(() => {
-        if (success) navigate("/login");
-
-        if (userInfo) navigate("/userProfile");
-    }, [navigate, userInfo, success]);
+   
     return (
         <>
             <section className="bg-white dark:bg-gray-900">
@@ -55,15 +51,15 @@ function Signup() {
                                         htmlFor="FirstName"
                                         className="block text-sm font-medium text-gray-700 dark:text-gray-200 "
                                     >
-                                        First Name
+                                        fullName
                                     </label>
 
                                     <input
                                         type="text"
                                         id="FirstName"
-                                        name="first_name"
+                                        name="fullName"
                                         className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 py-2 px-2"
-                                        {...register("firstName")}
+                                        {...register("fullName")}
                                     />
                                 </div>
 
@@ -72,15 +68,15 @@ function Signup() {
                                         htmlFor="LastName"
                                         className="block text-sm font-medium text-gray-700 dark:text-gray-200"
                                     >
-                                        Last Name
+                                        username
                                     </label>
 
                                     <input
                                         type="text"
                                         id="LastName"
-                                        name="last_name"
+                                        name="username"
                                         className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 py-2 px-2"
-                                        {...register("LastName")}
+                                        {...register("username")}
                                     />
                                 </div>
 
@@ -130,6 +126,22 @@ function Signup() {
                                         name="avatar"
                                         className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 py-2 px-2"
                                         {...register("avatar")}
+                                    />
+                                </div>
+                                <div className="col-span-6 sm:col-span-4">
+                                    <label
+                                        htmlFor="coverImage"
+                                        className="block text-sm font-medium text-gray-700 dark:text-gray-200"
+                                    >
+                                        coverImage
+                                    </label>
+
+                                    <input
+                                        type="file"
+                                        id="coverImage"
+                                        name="coverImage"
+                                        className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 py-2 px-2"
+                                        {...register("coverImage")}
                                     />
                                 </div>
 

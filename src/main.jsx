@@ -21,18 +21,21 @@ import Videos from "./Pages/Videos.jsx";
 import { CookiesProvider } from "react-cookie";
 import PostVideo from "./Pages/PostVideo.jsx";
 import DetailedVideo from "./Pages/DetailedVideo.jsx";
+import Logout from "./Pages/Logout.jsx";
+import { Bounce, ToastContainer, toast } from "react-toastify";
 const router = createBrowserRouter([
     {
         path: "/",
         element: <App />,
         children: [
-            { path: "/", element: <Errorpage /> },
+            { path: "/", element: <Videos /> },
             { path: "/login", element: <Login /> },
             { path: "/signup", element: <Signup /> },
             { path: "/userprofile", element: <UserProfile /> },
-            { path: "/home", element: <Videos /> },
+            { path: "/*", element: <Errorpage /> },
             { path: "/publishvideo", element: <PostVideo /> },
             { path: "/video/:videoid", element: <DetailedVideo /> },
+            { path: "/logout", element: <Logout /> },
         ],
     },
 ]);
@@ -41,6 +44,19 @@ createRoot(document.getElementById("root")).render(
         <CookiesProvider defaultSetOptions={{ path: "/" }}>
             <Provider store={store}>
                 <RouterProvider router={router} />
+                <ToastContainer
+                    position="bottom-right"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="dark"
+                    transition={Bounce}
+                />
             </Provider>
         </CookiesProvider>
     </StrictMode>
