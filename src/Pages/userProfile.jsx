@@ -1,12 +1,9 @@
 import React, { useEffect } from "react";
-import { useCookies } from "react-cookie";
-import { useSelector } from "react-redux";
 
 function UserProfile() {
-    const { loading, userInfo, error, success } = useSelector(
-        (state) => state.auth
-    );
-    console.log("userInfo is", userInfo);
+    const userInfo =
+        JSON.parse(localStorage.getItem("userInfo")) || " ";
+    // console.log("userInfo is", userInfo.data.user);
 
     return (
         <>
@@ -15,7 +12,10 @@ function UserProfile() {
                     <div className=" h-32 overflow-hidden">
                         <img
                             className="w-full"
-                            src={userInfo?.data.user.coverImage}
+                            src={
+                                userInfo?.data.user
+                                    .coverImage
+                            }
                             alt=""
                         />
                     </div>
@@ -29,20 +29,28 @@ function UserProfile() {
                     <div className=" ">
                         <div className="text-center px-14">
                             <h2 className="text-gray-800 text-3xl font-bold">
-                                {userInfo?.data.user.username}
+                                {
+                                    userInfo?.data.user
+                                        .username
+                                }
                             </h2>
                             <a
                                 className="text-gray-400 mt-2 hover:text-blue-500"
                                 href="https://www.instagram.com/immohitdhiman/"
                                 target="BLANK()"
                             >
-                                {userInfo?.data.user.fullName}
+                                {
+                                    userInfo?.data.user
+                                        .fullName
+                                }
                             </a>
                             <p className="mt-2 text-gray-500 text-sm">
-                                Lorem Ipsum is simply dummy text of the printing
-                                and typesetting industry. Lorem Ipsum has been
-                                the industry's standard dummy text ever since
-                                the 1500s,{" "}
+                                Lorem Ipsum is simply dummy
+                                text of the printing and
+                                typesetting industry. Lorem
+                                Ipsum has been the
+                                industry's standard dummy
+                                text ever since the 1500s,{" "}
                             </p>
                         </div>
                         <hr className="mt-6" />

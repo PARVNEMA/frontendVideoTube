@@ -9,9 +9,7 @@ const initialState = {
     success: false, // for monitoring the registration process.
 };
 
-const refreshToken = localStorage.getItem("refreshToken")
-    ? localStorage.getItem("refreshToken")
-    : null;
+
 export const authSlice = createSlice({
     name: "auth",
     initialState,
