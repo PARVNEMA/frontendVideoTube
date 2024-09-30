@@ -4,10 +4,12 @@ import { useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
 function DetailedVideo() {
     const [video, setvideo] = useState(null);
     const [comments, setcomments] = useState([]);
-    const [postedcomment, setpostedcomment] = useState(false);
+    const [postedcomment, setpostedcomment] =
+        useState(false);
     const [subscribed, setSubscribed] = useState(false);
     const [liked, setLiked] = useState(false);
 
@@ -16,8 +18,13 @@ function DetailedVideo() {
     const { videoid } = useParams();
     async function fetchvideoDetails() {
         try {
-            const response = await axios.get(`${backendurl}/videos/${videoid}`);
-            console.log("fetched data=", response.data.data);
+            const response = await axios.get(
+                `${backendurl}/videos/${videoid}`
+            );
+            console.log(
+                "fetched data=",
+                response.data.data
+            );
             // console.log("fetched video=", response.data.data);
             setvideo(response.data.data);
             if (response.data.data.owner._id) {
@@ -29,10 +36,15 @@ function DetailedVideo() {
                 );
                 console.log("like=", like.data.data.liked);
                 setLiked(like.data.data.liked);
-                setSubscribed(res.data.message.alreadysubscribed);
+                setSubscribed(
+                    res.data.message.alreadysubscribed
+                );
             }
         } catch (error) {
-            console.error("Error fetching video details:", error);
+            console.error(
+                "Error fetching video details:",
+                error
+            );
         }
     }
     async function fetchVideoComments() {
@@ -50,11 +62,18 @@ function DetailedVideo() {
             if (like) {
                 setLiked(!liked);
                 toast.info(
-                    ` ${liked ? "unliked successfully" : "liked successfully"}`
+                    ` ${
+                        liked
+                            ? "unliked successfully"
+                            : "liked successfully"
+                    }`
                 );
             }
         } catch (error) {
-            console.error("error in liking the video", error);
+            console.error(
+                "error in liking the video",
+                error
+            );
         }
     }
     const submitForm = async (data) => {
@@ -80,7 +99,10 @@ function DetailedVideo() {
             );
             if (res) {
                 setSubscribed(!subscribed);
-                console.log("subscription toggled", subscribed);
+                console.log(
+                    "subscription toggled",
+                    subscribed
+                );
                 toast.info(
                     `${
                         subscribed
@@ -90,7 +112,10 @@ function DetailedVideo() {
                 );
             }
         } catch (error) {
-            console.error("error in subscribing the channnel", error);
+            console.error(
+                "error in subscribing the channnel",
+                error
+            );
         }
     }
 
@@ -120,7 +145,8 @@ function DetailedVideo() {
                 >
                     <source />
                     <h1 className="text-4xl font-bold text-white">
-                        Your browser does not support the video tag.
+                        Your browser does not support the
+                        video tag.
                     </h1>
                 </video>
                 {/* <iframe src=frameborder="0" ></iframe> */}
@@ -139,12 +165,14 @@ function DetailedVideo() {
                     <div className="flex space-x-4">
                         <button
                             className={`px-4 py-2  text-gray-800 rounded-lg  ${
-                                liked ? "bg-blue-500" : "bg-gray-200"
+                                liked
+                                    ? "bg-blue-500"
+                                    : "bg-gray-200"
                             }`}
                             onClick={toggleLiked}
                         >
-                            <i className="fas fa-thumbs-up"></i> Like{" "}
-                            {video?.likes}
+                            <i className="fas fa-thumbs-up"></i>{" "}
+                            Like {video?.likes}
                         </button>
                     </div>
                 </div>
@@ -156,7 +184,8 @@ function DetailedVideo() {
 
                 <div className="mt-4 text-gray-200">
                     <p>
-                        <strong>Description:</strong> {video?.description}
+                        <strong>Description:</strong>{" "}
+                        {video?.description}
                     </p>
                 </div>
 
@@ -177,11 +206,15 @@ function DetailedVideo() {
                     </div>
                     <button
                         className={`px-4 py-2  text-white rounded-lg hover:bg-blue-600 ${
-                            subscribed ? "bg-blue-500" : "bg-red-600"
+                            subscribed
+                                ? "bg-blue-500"
+                                : "bg-red-600"
                         } `}
                         onClick={toggleSubscription}
                     >
-                        {subscribed ? "Subscribed" : "Subscribe"}
+                        {subscribed
+                            ? "Subscribed"
+                            : "Subscribe"}
                     </button>
                 </div>
 
@@ -208,20 +241,31 @@ function DetailedVideo() {
                     </form>
 
                     {comments.map((comment) => (
-                        <div className="space-y-4 py-4" key={comment._id}>
+                        <div
+                            className="space-y-4 py-4"
+                            key={comment._id}
+                        >
                             <div className="flex space-x-4 bg-gray-700 justify-center items-center rounded-lg px-2">
                                 <div className="w-10 h-10 bg-gray-100 rounded-full">
                                     <img
-                                        src={comment.owner.avatar}
+                                        src={
+                                            comment.owner
+                                                .avatar
+                                        }
                                         alt=""
                                         className="w-10 h-10 bg-gray-100 rounded-full"
                                     />
                                 </div>
                                 <div className="flex-1">
                                     <p className="font-semibold text-blue-700">
-                                        {comment.owner.username}
+                                        {
+                                            comment.owner
+                                                .username
+                                        }
                                         <span className="text-gray-400 text-sm p-4">
-                                            {comment.createdAt}
+                                            {
+                                                comment.createdAt
+                                            }
                                         </span>
                                     </p>
                                     <p className="text-white">

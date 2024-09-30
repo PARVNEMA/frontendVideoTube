@@ -7,7 +7,9 @@ function Videos() {
     const [loading, setLoading] = useState(false);
     const [vdata, setData] = useState([]);
 
-    const { videoInfo } = useSelector((state) => state.video);
+    const { videoInfo } = useSelector(
+        (state) => state.video
+    );
 
     const dispatch = useDispatch();
 
@@ -24,14 +26,36 @@ function Videos() {
         }
     }, [videoInfo]);
 
+    const Skeletonloader = () => {
+        const skeletonArray = Array(20).fill(0);
+
+        return (
+            <div className="flex gap-8 flex-wrap h-full">
+                {skeletonArray.map((_, index) => (
+                    <div
+                        key={index}
+                        className="flex w-52 flex-col gap-4"
+                    >
+                        <div className="skeleton h-32 w-full"></div>
+                        <div className="skeleton h-4 w-28"></div>
+                        <div className="skeleton h-4 w-full"></div>
+                        <div className="skeleton h-4 w-full"></div>
+                    </div>
+                ))}
+            </div>
+        );
+    };
     return (
-        <div className="container mx-auto py-8">
+        <div className="container mx-auto p-4 min-h-screen">
             {loading ? (
-                <div className="text-center">Loading...</div>
+                <Skeletonloader />
             ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
                     {vdata.map((video, index) => (
-                        <VideoCard key={index} video={video} />
+                        <VideoCard
+                            key={index}
+                            video={video}
+                        />
                     ))}
                 </div>
             )}
