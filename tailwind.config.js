@@ -3,16 +3,10 @@ import daisyui from "daisyui";
 export default {
     content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
     theme: {
-        extend: {
-            daisyui: {
-                themes: [
-                    "light",
-                    "black",
-                    "dark",
-                    "cupcake",
-                ],
-            },
-        },
+        extend: {},
     },
     plugins: [daisyui],
+    daisyui: {
+        themes: ["light", "black", "dark", "cupcake"],
+    },
 };

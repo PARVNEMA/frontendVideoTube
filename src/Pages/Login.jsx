@@ -48,7 +48,7 @@ function Login() {
     }, [navigate, userInfo, success]);
     return (
         <>
-            <section className="bg-white dark:bg-gray-900">
+            <section className="">
                 <div className=" lg:min-h-screen flex items-center justify-center ">
                     <main className="flex items-center justify-center  sm:px-12 ">
                         <div className="max-w-xl lg:max-w-4xl">
@@ -61,11 +61,11 @@ function Login() {
                                 </span>
                             </a>
 
-                            <h1 className="mt-6 text-2xl font-bold text-gray-900 sm:text-3xl md:text-4xl dark:text-white text-center">
+                            <h1 className="mt-6 text-2xl font-bold ghost-white sm:text-3xl md:text-4xl :text-white text-center">
                                 Welcome to Squid
                             </h1>
 
-                            <p className="mt-4 leading-relaxed text-gray-500 dark:text-gray-400">
+                            <p className="mt-4 leading-relaxed text-gray-500 :text-gray-400">
                                 Lorem, ipsum dolor sit amet
                                 consectetur adipisicing
                                 elit. Eligendi nam dolorum
@@ -83,7 +83,7 @@ function Login() {
                                 <div className="col-span-4">
                                     <label
                                         htmlFor="Email"
-                                        className="block text-sm font-medium text-gray-700 dark:text-gray-200"
+                                        className="block text-sm font-medium  ghost-white :text-gray-200"
                                     >
                                         Email
                                     </label>
@@ -92,7 +92,7 @@ function Login() {
                                         type="email"
                                         id="Email"
                                         name="email"
-                                        className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 py-2 px-2"
+                                        className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-black shadow-sm :border-gray-700  py-2 px-2"
                                         {...register(
                                             "email"
                                         )}
@@ -102,7 +102,7 @@ function Login() {
                                 <div className="col-span-6 sm:col-span-4">
                                     <label
                                         htmlFor="Password"
-                                        className="block text-sm font-medium text-gray-700 dark:text-gray-200"
+                                        className="block text-sm font-medium  ghost-white :text-gray-200"
                                     >
                                         Password
                                     </label>
@@ -111,7 +111,7 @@ function Login() {
                                         type="password"
                                         id="Password"
                                         name="password"
-                                        className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 py-2 px-2"
+                                        className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm  text-black shadow-sm :border-gray-700 :bg-gray-800 :text-gray-200 py-2 px-2"
                                         {...register(
                                             "password"
                                         )}
@@ -119,13 +119,13 @@ function Login() {
                                 </div>
 
                                 <div className="col-span-6">
-                                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                                    <p className="text-sm text-gray-500 ghost-white">
                                         By creating an
                                         account, you agree
                                         to our
                                         <a
                                             href="#"
-                                            className="text-gray-700 underline dark:text-gray-200"
+                                            className=" ghost-white underline :text-gray-200"
                                         >
                                             terms and
                                             conditions
@@ -133,7 +133,7 @@ function Login() {
                                         and
                                         <a
                                             href="#"
-                                            className="text-gray-700 underline dark:text-gray-200"
+                                            className=" ghost-white underline :text-gray-200"
                                         >
                                             {" "}
                                             privacy policy{" "}
@@ -144,18 +144,18 @@ function Login() {
 
                                 <div className="col-span-6 sm:flex sm:items-center sm:gap-4">
                                     <button
-                                        className="inline-block shrink-0 rounded-md border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500 dark:hover:bg-blue-700 dark:hover:text-white"
+                                        className="inline-block shrink-0 rounded-md border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500 :hover:bg-blue-700 :hover:text-white"
                                         type="submit"
                                     >
                                         Login
                                     </button>
 
-                                    <p className="mt-4 text-sm text-gray-500 sm:mt-0 dark:text-gray-400">
+                                    <p className="mt-4 text-sm text-gray-500 sm:mt-0 :text-gray-400">
                                         Don't have an
                                         account?
                                         <Link
                                             to={"/signup"}
-                                            className="text-gray-700 underline dark:text-gray-200"
+                                            className=" ghost-white underline :text-gray-200"
                                         >
                                             SignUp
                                         </Link>
