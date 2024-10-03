@@ -22,7 +22,12 @@ import { CookiesProvider } from "react-cookie";
 import PostVideo from "./Pages/PostVideo.jsx";
 import DetailedVideo from "./Pages/DetailedVideo.jsx";
 import Logout from "./Pages/Logout.jsx";
-import { Bounce, ToastContainer, toast } from "react-toastify";
+import {
+    Bounce,
+    ToastContainer,
+    toast,
+} from "react-toastify";
+import Subscriptions from "./Pages/Subscriptions.jsx";
 const router = createBrowserRouter([
     {
         path: "/",
@@ -31,11 +36,24 @@ const router = createBrowserRouter([
             { path: "/", element: <Videos /> },
             { path: "/login", element: <Login /> },
             { path: "/signup", element: <Signup /> },
-            { path: "/userprofile", element: <UserProfile /> },
+            {
+                path: "/userprofile",
+                element: <UserProfile />,
+            },
             { path: "/*", element: <Errorpage /> },
-            { path: "/publishvideo", element: <PostVideo /> },
-            { path: "/video/:videoid", element: <DetailedVideo /> },
+            {
+                path: "/publishvideo",
+                element: <PostVideo />,
+            },
+            {
+                path: "/video/:videoid",
+                element: <DetailedVideo />,
+            },
             { path: "/logout", element: <Logout /> },
+            {
+                path: "/subscribedchannels",
+                element: <Subscriptions />,
+            },
         ],
     },
 ]);

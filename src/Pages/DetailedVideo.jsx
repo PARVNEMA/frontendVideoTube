@@ -12,6 +12,7 @@ function DetailedVideo() {
         useState(false);
     const [subscribed, setSubscribed] = useState(false);
     const [liked, setLiked] = useState(false);
+    const [commentliked, setcommentliked] = useState(null);
 
     const { register, handleSubmit } = useForm();
     const backendurl = "/api";
@@ -34,7 +35,7 @@ function DetailedVideo() {
                 const like = await axios.post(
                     `${backendurl}/likes/isalreadyliked/v/${videoid}`
                 );
-                console.log("like=", like.data.data.liked);
+                // console.log("like=", like.data.data.liked);
                 setLiked(like.data.data.liked);
                 setSubscribed(
                     res.data.message.alreadysubscribed
@@ -77,16 +78,22 @@ function DetailedVideo() {
         }
     }
     const submitForm = async (data) => {
-        console.log(data);
+        try {
+            console.log(data);
 
-        const postmycomment = await axios.post(
-            `${backendurl}/comments/${videoid}`,
-            data
-        );
-        setpostedcomment(true);
-        console.log(postmycomment);
-        if (postmycomment) {
-            toast.success("comment posted successfully");
+            const postmycomment = await axios.post(
+                `${backendurl}/comments/${videoid}`,
+                data
+            );
+            setpostedcomment(true);
+            console.log(postmycomment);
+            if (postmycomment) {
+                toast.success(
+                    "comment posted successfully"
+                );
+            }
+        } catch (error) {
+            toast.error("error in posting comments");
         }
     };
     async function toggleSubscription() {
@@ -116,6 +123,28 @@ function DetailedVideo() {
                 "error in subscribing the channnel",
                 error
             );
+            toast.error(error.message);
+        }
+    }
+
+    async function toggleCommentLike(id) {
+        try {
+            // console.log(id);
+            const res = await axios.post(
+                `${backendurl}/likes/toggle/c/${id}`
+            );
+            if (res) {
+                setcommentliked(id);
+                toast.info(
+                    ` ${
+                        liked
+                            ? "unliked successfully"
+                            : "liked successfully"
+                    }`
+                );
+            }
+        } catch (error) {
+            toast.error(error.message);
         }
     }
 
@@ -273,6 +302,21 @@ function DetailedVideo() {
                                     </p>
                                 </div>
                             </div>
+                            <button
+                                onClick={() =>
+                                    toggleCommentLike(
+                                        comment._id
+                                    )
+                                }
+                                className={`px-4 py-2  text-gray-800 rounded-lg  ${
+                                    commentliked ===
+                                    comment._id
+                                        ? "bg-blue-500"
+                                        : "bg-gray-200"
+                                }`}
+                            >
+                                like
+                            </button>
                         </div>
                     ))}
                 </div>
