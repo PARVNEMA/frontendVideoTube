@@ -11,41 +11,29 @@ function Navbar() {
 		localStorage.getItem("theme") || "light"
 	);
 
-	const { user } = useSelector((state) => state.auth);
-
 	const navigate = useNavigate();
 	const backendUrl = "/api";
+	async function getCurrentUser() {
+		try {
+			const res = await axios.get(
+				`${backendUrl}/users/current-user`
+			);
+			console.log("current user", res.data);
+			setLoggedIn(true);
+			setdata(res.data.data);
+			// console.log(user);
+		} catch (error) {
+			toast.error(error);
+		}
+	}
 	useEffect(() => {
 		localStorage.setItem("theme", theme);
-		const userInfo = localStorage.getItem("userInfo");
+		// const userInfo = localStorage.getItem("userInfo");
 		const localTheme = localStorage.getItem("theme");
 		document
 			.querySelector("html")
 			.setAttribute("data-theme", localTheme);
-
-		// Ensure userInfo is not null or malformed
-		try {
-			if (userInfo && user) {
-				const parsedUserInfo = JSON.parse(userInfo);
-				if (
-					parsedUserInfo &&
-					parsedUserInfo.data &&
-					parsedUserInfo.data.user
-				) {
-					setdata(parsedUserInfo.data.user);
-					setLoggedIn(true);
-				} else {
-					console.error(
-						"Invalid userInfo structure",
-						parsedUserInfo
-					);
-				}
-			}
-		} catch (error) {
-			console.error("Error parsing userInfo:", error);
-			// If parsing fails, you might want to clear the invalid item
-			localStorage.removeItem("userInfo");
-		}
+		getCurrentUser();
 	}, [loggedin, theme]); // Run only once on mount
 
 	// Logout function
@@ -118,10 +106,10 @@ function Navbar() {
 									className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
 								>
 									<li>
-										<a className="justify-between">
+										<Link className="justify-between" to={"/userprofile"}>
 											Profile
 											<span className="badge">New</span>
-										</a>
+										</Link>
 									</li>
 									<li>
 										<a>Settings</a>
@@ -139,10 +127,10 @@ function Navbar() {
 						</>
 					) : (
 						<div className="flex gap-2">
-							<button className="btn btn-outline btn-primary">
+							<button className="btn btn-ghost dark:btn-border-accent ">
 								<Link to={"/login"}>Login</Link>
 							</button>
-							<button className="btn btn-outline btn-accent">
+							<button className="btn btn-ghost  dark:btn-border-accent">
 								{" "}
 								<Link to={"/signup"}>Signup</Link>
 							</button>

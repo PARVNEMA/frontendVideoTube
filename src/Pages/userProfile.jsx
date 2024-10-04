@@ -1,53 +1,83 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
-
 function UserProfile() {
 	const [loggedIn, setLoggedIn] = useState(false);
 	const [userInfo, setUserInfo] = useState(null);
-	const user = useSelector((state) => state.auth);
-	useEffect(() => {
-		console.log(user);
+	const [subscribersInfo, setsubscribersInfo] =
+		useState(null);
 
-		if (user.userInfo) {
-			setLoggedIn(true);
-			setUserInfo(
-				JSON.parse(localStorage.getItem("userInfo")) || " "
+	const backendurl = "/api";
+	async function getCurrentUser() {
+		try {
+			const res = await axios.get(
+				`${backendurl}/users/current-user`
 			);
+			console.log("current user", res.data);
+			setLoggedIn(true);
+			setUserInfo(res.data);
+			// console.log(user);
+		} catch (error) {
+			toast.error(error);
 		}
+	}
+	const getSubscribers = async () => {
+		try {
+			console.log("user id", userInfo?.data?._id);
+			const res = await axios.get(
+				`${backendurl}/subscriptions/u/${userInfo?.data?._id}`
+			);
+
+			console.log(res.data);
+			setsubscribersInfo(res.data);
+		} catch (error) {
+			console.log(
+				"error in getting channel subscribers",
+				error
+			);
+
+			toast.error(error.message);
+		}
+	};
+	useEffect(() => {
+		getCurrentUser();
 	}, []);
+	useEffect(() => {
+		if (loggedIn) getSubscribers();
+	}, [userInfo]);
 
 	return (
 		<div>
 			{loggedIn ? (
-				<div className="h-screen bg-gray-200  dark:bg-gray-800   flex flex-wrap items-center  justify-center  ">
-					<div className="container lg:w-2/6 xl:w-2/7 sm:w-full md:w-2/3    bg-white  shadow-lg    transform   duration-200 easy-in-out">
-						<div className=" h-32 overflow-hidden">
+				<div className="h-screen w-screen  flex flex-wrap  justify-center  ">
+					<div className="h-screen w-screen   bg-orange-100  shadow-lg    transform   duration-200 easy-in-out">
+						<div className=" h-[300px] overflow-hidden">
 							<img
-								className="w-full"
-								src={userInfo?.data.user.coverImage}
+								className="w-full object-cover h-full"
+								src={userInfo?.data.coverImage}
 								alt=""
 							/>
 						</div>
 						<div className="flex justify-center px-5  -mt-12">
 							<img
 								className="h-32 w-32 bg-white p-2 rounded-full   "
-								src={userInfo?.data.user.avatar}
+								src={userInfo?.data.avatar}
 								alt=""
 							/>
 						</div>
 						<div className=" ">
 							<div className="text-center px-14">
 								<h2 className="text-gray-800 text-3xl font-bold">
-									{userInfo?.data.user.username}
+									{userInfo?.dataname}
 								</h2>
 								<a
-									className="text-gray-400 mt-2 hover:text-blue-500"
+									className="text-black mt-2 hover:text-blue-500"
 									href="https://www.instagram.com/immohitdhiman/"
 									target="BLANK()"
 								>
-									{userInfo?.data.user.fullName}
+									{userInfo?.data.fullName}
 								</a>
 								<p className="mt-2 text-gray-500 text-sm">
 									Lorem Ipsum is simply dummy text of the
@@ -58,23 +88,21 @@ function UserProfile() {
 							</div>
 							<hr className="mt-6" />
 							<div className="flex  bg-gray-50 ">
-								<div className="text-center w-1/2 p-4 hover:bg-gray-100 cursor-pointer">
+								<div className="text-center w-1/2 p-4 hover:bg-gray-100 cursor-pointer text-black">
 									<p>
-										<span className="font-semibold">
-											2.5 k{" "}
+										<span className="font-semibold ">
+											{subscribersInfo?.data?.number}{" "}
 										</span>{" "}
-										Followers
+										Subscribers
 									</p>
 								</div>
 								<div className="border"></div>
-								<div className="text-center w-1/2 p-4 hover:bg-gray-100 cursor-pointer">
-									<p>
-										{" "}
-										<span className="font-semibold">
-											2.0 k{" "}
-										</span>{" "}
-										Following
-									</p>
+								<div className="text-center w-1/2 p-4 cursor-pointer text-black ">
+									<Link to={"/publishvideo"}>
+										<button >
+											Publish Video
+										</button>
+									</Link>
 								</div>
 							</div>
 						</div>
@@ -84,10 +112,7 @@ function UserProfile() {
 				<>
 					{/* Open the modal using document.getElementById('ID').showModal() method */}
 
-					<div
-						id=""
-						className={` `}
-					>
+					<div id="" className={` `}>
 						<div className=" outline">
 							<h3 className="font-bold text-lg">
 								Login / Signup to view profile

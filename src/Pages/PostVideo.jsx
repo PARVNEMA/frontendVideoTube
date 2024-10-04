@@ -1,6 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 function VideoUploadForm() {
     // Initialize React Hook Form
@@ -36,7 +37,7 @@ function VideoUploadForm() {
             if (videos) {
                 console.log("Videos has been posted Successfully");
             }
-            return videos.data;
+            toast.success(videos.data.message);
         } catch (error) {
             console.log(error);
         }
