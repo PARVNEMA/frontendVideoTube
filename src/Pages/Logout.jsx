@@ -3,24 +3,21 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 function Logout() {
-    const navigate = useNavigate();
-    const backendUrl = "/api";
-    async function logout() {
-        await axios.post(`${backendUrl}/users/logout`);
-        localStorage.setItem("userInfo", " ");
-        navigate("/login");
-    }
-    return (
-        <div>
-            {" "}
-            <button
-                onClick={logout}
-                className="text-red-500 "
-            >
-                Logout
-            </button>
-        </div>
-    );
+	const navigate = useNavigate();
+	const backendUrl = import.meta.env.VITE_URL;
+	async function logout() {
+		await axios.post(`${backendUrl}/users/logout`);
+		localStorage.setItem("userInfo", " ");
+		navigate("/login");
+	}
+	return (
+		<div>
+			{" "}
+			<button onClick={logout} className="text-red-500 ">
+				Logout
+			</button>
+		</div>
+	);
 }
 
 export default Logout;

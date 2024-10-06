@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import React, { useEffect, useState } from "react";
 function Subscriptions() {
-	const backendurl = "/api";
+	const backendurl = import.meta.env.VITE_URL;
 	const [channels, setchannels] = useState([]);
 
 	const fetchsubscriptions = async () => {
@@ -14,7 +14,13 @@ function Subscriptions() {
 			console.log("id", id);
 
 			const res = await axios.get(
-				`${backendurl}/subscriptions/c/${id}`
+				`${backendurl}/subscriptions/c/${id}`,
+				{
+					withCredentials: true,
+					headers: {
+						"Content-Type": "application/json",
+					},
+				}
 			);
 			if (res) {
 				console.log(

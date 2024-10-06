@@ -9,11 +9,18 @@ function UserProfile() {
 	const [subscribersInfo, setsubscribersInfo] =
 		useState(null);
 
-	const backendurl = "/api";
+	const backendurl = import.meta.env.VITE_URL;
 	async function getCurrentUser() {
 		try {
 			const res = await axios.get(
-				`${backendurl}/users/current-user`
+				`${backendurl}/users/current-user`,
+				{
+					withCredentials: true,
+
+					headers: {
+						"Content-Type": "application/json",
+					},
+				}
 			);
 			console.log("current user", res.data);
 			setLoggedIn(true);
@@ -27,7 +34,13 @@ function UserProfile() {
 		try {
 			console.log("user id", userInfo?.data?._id);
 			const res = await axios.get(
-				`${backendurl}/subscriptions/u/${userInfo?.data?._id}`
+				`${backendurl}/subscriptions/u/${userInfo?.data?._id}`,
+				{
+					withCredentials: true,
+					headers: {
+						"Content-Type": "application/json",
+					},
+				}
 			);
 
 			console.log(res.data);
@@ -99,9 +112,7 @@ function UserProfile() {
 								<div className="border"></div>
 								<div className="text-center w-1/2 p-4 cursor-pointer text-black ">
 									<Link to={"/publishvideo"}>
-										<button >
-											Publish Video
-										</button>
+										<button>Publish Video</button>
 									</Link>
 								</div>
 							</div>

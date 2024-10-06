@@ -12,11 +12,17 @@ function Navbar() {
 	);
 
 	const navigate = useNavigate();
-	const backendUrl = "/api";
+	const backendUrl = import.meta.env.VITE_URL;
 	async function getCurrentUser() {
 		try {
 			const res = await axios.get(
-				`${backendUrl}/users/current-user`
+				`${backendUrl}/users/current-user`,
+				{
+					withCredentials: true, // This ensures cookies are included in requests
+					headers: {
+						"Content-Type": "application/json",
+					},
+				}
 			);
 			console.log("current user", res.data);
 			setLoggedIn(true);
@@ -39,7 +45,9 @@ function Navbar() {
 	// Logout function
 	async function logout() {
 		try {
-			await axios.post(`${backendUrl}/users/logout`);
+			await axios.post(`${backendUrl}/users/logout`, null, {
+				withCredentials: true, // Ensure cookies are included in the request
+			});
 			// Clear localStorage and reset state
 			setdata(null);
 			localStorage.removeItem("userInfo");
@@ -53,7 +61,7 @@ function Navbar() {
 	}
 	const handleToggle = (e) => {
 		if (e.target.checked) {
-			setTheme("black");
+			setTheme("dark");
 		} else {
 			setTheme("cupcake");
 		}
@@ -106,7 +114,10 @@ function Navbar() {
 									className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
 								>
 									<li>
-										<Link className="justify-between" to={"/userprofile"}>
+										<Link
+											className="justify-between"
+											to={"/userprofile"}
+										>
 											Profile
 											<span className="badge">New</span>
 										</Link>
