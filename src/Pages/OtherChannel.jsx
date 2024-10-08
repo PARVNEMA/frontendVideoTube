@@ -1,20 +1,20 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-function UserProfile() {
+function OtherChannel() {
+	const { username } = useParams();
 	const [loggedIn, setLoggedIn] = useState(false);
-	const [userInfo, setUserInfo] = useState(null);
-	const [subscribersInfo, setsubscribersInfo] =
-		useState(null);
+	const [channelinfo, setchannelinfo] = useState(null);
+
 	const [channelvideos, setchannelvideos] = useState(null);
 
 	const backendurl = import.meta.env.VITE_URL;
-	async function getCurrentUser() {
+	async function getChannelUser() {
 		try {
 			const res = await axios.get(
-				`${backendurl}/users/current-user`,
+				`${backendurl}/users/c/${username}`,
 				{
 					withCredentials: true,
 
@@ -23,43 +23,23 @@ function UserProfile() {
 					},
 				}
 			);
-			console.log("current user", res.data);
+			console.log(
+				"current userother channel",
+				res.data.data
+			);
+			setchannelinfo(res.data);
 			setLoggedIn(true);
-			setUserInfo(res.data);
 			// console.log(user);
 		} catch (error) {
 			toast.error(error);
 		}
 	}
-	const getSubscribers = async () => {
-		try {
-			console.log("user id", userInfo?.data?._id);
-			const res = await axios.get(
-				`${backendurl}/subscriptions/u/${userInfo?.data?._id}`,
-				{
-					withCredentials: true,
-					headers: {
-						"Content-Type": "application/json",
-					},
-				}
-			);
 
-			console.log(res.data);
-			setsubscribersInfo(res.data);
-		} catch (error) {
-			console.log(
-				"error in getting channel subscribers",
-				error
-			);
-
-			toast.error(error.message);
-		}
-	};
 	const getChannelVideos = async () => {
 		try {
-			console.log("user id", userInfo?.data?._id);
+			console.log("user id", channelinfo?.data?._id);
 			const res = await axios.get(
-				`${backendurl}/videos/allchannelvideos/${userInfo?.data?._id}`,
+				`${backendurl}/videos/allchannelvideos/${channelinfo?.data?._id}`,
 				{
 					withCredentials: true,
 					headers: {
@@ -80,62 +60,45 @@ function UserProfile() {
 		}
 	};
 
-	const deleteVideo = async (id) => {
-		try {
-			const response = await axios.delete(
-				`${backendurl}/videos/${id}`,
-
-				{
-					withCredentials: true,
-				}
-			);
-			if (response) {
-				toast.success("video deleted succesfully");
-			}
-		} catch (error) {
-			toast.error(error.message);
-		}
-	};
 	useEffect(() => {
-		getCurrentUser();
+		getChannelUser();
 	}, []);
 	useEffect(() => {
 		if (loggedIn) {
-			getSubscribers();
 			getChannelVideos();
 		}
-	}, [userInfo]);
+	}, [channelinfo]);
 
 	return (
 		<div>
 			{loggedIn ? (
 				<div className="h-screen w-screen  flex flex-wrap  justify-center  ">
-					<div className="h-screen w-screen   shadow-lg    transform   duration-200 easy-in-out">
+					<div className="h-screen w-screen     shadow-lg    transform   duration-200 easy-in-out">
 						<div className=" h-[300px] overflow-hidden">
 							<img
 								className="w-full object-cover h-full"
-								src={userInfo?.data.coverImage}
+								src={channelinfo?.data.coverImage}
 								alt=""
 							/>
 						</div>
 						<div className="flex justify-center px-5  -mt-12">
 							<img
 								className="h-32 w-32 bg-white p-2 rounded-full   "
-								src={userInfo?.data.avatar}
+								src={channelinfo?.data.avatar}
 								alt=""
 							/>
 						</div>
 						<div className=" ">
 							<div className="text-center px-14">
 								<h2 className="text-gray-800 text-3xl font-bold">
-									{userInfo?.dataname}
+									{channelinfo?.dataname}
 								</h2>
 								<a
 									className="text-black mt-2 hover:text-blue-500"
 									href="https://www.instagram.com/immohitdhiman/"
 									target="BLANK()"
 								>
-									{userInfo?.data.fullName}
+									{channelinfo?.data.fullName}
 								</a>
 								<p className="mt-2 text-gray-500 text-sm">
 									Lorem Ipsum is simply dummy text of the
@@ -149,9 +112,18 @@ function UserProfile() {
 								<div className="text-center w-1/2 p-4 hover:bg-gray-100 cursor-pointer text-black">
 									<p>
 										<span className="font-semibold ">
-											{subscribersInfo?.data?.number}{" "}
+											{channelinfo?.data?.subscribersCount}{" "}
 										</span>{" "}
 										Subscribers
+									</p>
+								</div>
+								<div className="text-center w-1/2 p-4 hover:bg-gray-100 cursor-pointer text-black">
+									<p>
+										SubscribedTo{" "}
+										<span className="font-semibold ">
+											{channelinfo?.data?.channelsSubscribedToCount}{" "}
+										</span>{" "}
+
 									</p>
 								</div>
 								<div className="border"></div>
@@ -187,21 +159,6 @@ function UserProfile() {
 													Watch now
 												</Link>
 											</button>
-
-											<button
-												className={`btn btn-primary ${
-													item.owner === userInfo?.data?._id
-														? "bg-red-500"
-														: "hidden"
-												}`}
-												onClick={() =>
-													deleteVideo(item._id)
-												}
-											>
-												<Link to={`/video/${item._id}`}>
-													Delete Video
-												</Link>
-											</button>
 										</div>
 									</div>
 								</div>
@@ -234,4 +191,4 @@ function UserProfile() {
 	);
 }
 
-export default UserProfile;
+export default OtherChannel;

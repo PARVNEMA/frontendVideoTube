@@ -49,7 +49,7 @@ function Login() {
 				path: "/",
 				httpOnly: true, // Prevent JavaScript from accessing the cookie
 				sameSite: "none", // Allow cookies to be sent in cross-origin requests
-				secure: true,
+				secure: false,
 			});
 			setCookie(
 				"refreshToken",
@@ -58,7 +58,7 @@ function Login() {
 					path: "/",
 					httpOnly: true, // Prevent JavaScript from accessing the cookie
 					sameSite: "none", // Allow cookies to be sent in cross-origin
-					secure: true,
+					secure: false,
 				}
 			);
 			// console.log(userInfo.data.accessToken);

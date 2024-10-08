@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -149,7 +149,7 @@ function DetailedVideo() {
 			const res = await axios.post(
 				`${backendurl}/likes/toggle/c/${id}`, null,{
 					withCredentials: true,  // Ensure cookies are included in the request
-				
+
 				}
 			);
 			if (res) {
@@ -246,7 +246,9 @@ function DetailedVideo() {
 					</div>
 					<div className="flex-1">
 						<h2 className="text-lg font-semibold text-cyan-600">
+							<Link to={`/user/c/${video.owner.username}`}>
 							{video.owner.username}
+							</Link>
 						</h2>
 					</div>
 					<button
