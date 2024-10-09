@@ -29,6 +29,7 @@ import {
 } from "react-toastify";
 import Subscriptions from "./Pages/Subscriptions.jsx";
 import OtherChannel from "./Pages/OtherChannel.jsx";
+import WatchHistory from "./Pages/WatchHistory.jsx";
 const router = createBrowserRouter([
 	{
 		path: "/",
@@ -58,6 +59,10 @@ const router = createBrowserRouter([
 			{
 				path: "/user/c/:username",
 				element: <OtherChannel />,
+			},
+			{
+				path: "/watchhistory",
+				element: <WatchHistory />,
 			},
 		],
 	},

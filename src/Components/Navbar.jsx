@@ -123,7 +123,13 @@ function Navbar() {
 										</Link>
 									</li>
 									<li>
-										<a>Settings</a>
+									<Link
+											className="justify-between"
+											to={"/watchhistory"}
+										>
+											Watch History
+											<span className="badge"></span>
+										</Link>
 									</li>
 									<li>
 										<button

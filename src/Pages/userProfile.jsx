@@ -96,6 +96,24 @@ function UserProfile() {
 			toast.error(error.message);
 		}
 	};
+	const ToggleVideo = async (id) => {
+		try {
+			const response = await axios.patch(
+				`${backendurl}/videos/toggle/publish/${id}`,
+				null,
+
+				{
+					withCredentials: true,
+				}
+			);
+			if (response) {
+				toast.success("video Status Toggled succesfully");
+			}
+		} catch (error) {
+			toast.error(error.message);
+		}
+	};
+
 	useEffect(() => {
 		getCurrentUser();
 	}, []);
@@ -198,10 +216,17 @@ function UserProfile() {
 													deleteVideo(item._id)
 												}
 											>
-												<Link to={`/video/${item._id}`}>
-													Delete Video
-												</Link>
+												Delete Video
 											</button>
+
+											<input
+												type="checkbox"
+												className="toggle toggle-info"
+												defaultChecked={item.isPublished}
+												onChange={() =>
+													ToggleVideo(item._id)
+												}
+											/>
 										</div>
 									</div>
 								</div>
