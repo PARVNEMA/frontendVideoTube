@@ -1,0 +1,13 @@
+{
+	"headers": [
+		{
+			"source": "/api/(.*)",
+			"headers": [
+				{
+					"key": "Access-Control-Allow-Origin",
+					"value": "https://frontend-video-tube-git-main-parv-nemas-projects.vercel.app"
+				}
+			]
+		}
+	]
+}
