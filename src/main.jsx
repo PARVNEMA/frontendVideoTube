@@ -30,6 +30,7 @@ import {
 import Subscriptions from "./Pages/Subscriptions.jsx";
 import OtherChannel from "./Pages/OtherChannel.jsx";
 import WatchHistory from "./Pages/WatchHistory.jsx";
+import UpdateVideo from "./Pages/UpdateVideo.jsx";
 const router = createBrowserRouter([
 	{
 		path: "/",
@@ -63,6 +64,10 @@ const router = createBrowserRouter([
 			{
 				path: "/watchhistory",
 				element: <WatchHistory />,
+			},
+			{
+				path: "/updatevideo/:videoid",
+				element: <UpdateVideo />,
 			},
 		],
 	},

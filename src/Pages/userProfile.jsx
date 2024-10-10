@@ -1,9 +1,10 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 function UserProfile() {
+	const navigate = useNavigate();
 	const [loggedIn, setLoggedIn] = useState(false);
 	const [userInfo, setUserInfo] = useState(null);
 	const [subscribersInfo, setsubscribersInfo] =
@@ -217,6 +218,16 @@ function UserProfile() {
 												}
 											>
 												Delete Video
+											</button>
+											<button
+												className={`btn btn-primary `}
+												onClick={() => {
+													navigate(
+														`/updatevideo/${item._id}`
+													);
+												}}
+											>
+												update Video
 											</button>
 
 											<input
