@@ -40,7 +40,7 @@ function Navbar() {
 			.querySelector("html")
 			.setAttribute("data-theme", localTheme);
 		getCurrentUser();
-	}, [loggedin, theme]); // Run only once on mount
+	}, [ theme]);
 
 	// Logout function
 	async function logout() {
@@ -61,13 +61,13 @@ function Navbar() {
 	}
 	const handleToggle = (e) => {
 		if (e.target.checked) {
-			setTheme("dark");
+			setTheme("black");
 		} else {
 			setTheme("cupcake");
 		}
 	};
 	return (
-		<div className="navbar bg-base-100">
+		<div className="navbar w-full bg-base-100 border border-b-purple-500 border-b-2 mb-4">
 			<div className="flex-1">
 				<a className="btn btn-ghost text-xl">
 					<Link to={"/"}>daisyUI</Link>
@@ -123,7 +123,7 @@ function Navbar() {
 										</Link>
 									</li>
 									<li>
-									<Link
+										<Link
 											className="justify-between"
 											to={"/watchhistory"}
 										>

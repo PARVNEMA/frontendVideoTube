@@ -3,7 +3,13 @@ import { Link } from "react-router-dom";
 
 function VideoCard({ video }) {
     return (
-        <div className="w-80 bg-white rounded-lg overflow-hidden shadow-lg hover:scale-105 transition-transform duration-300 cursor-pointer">
+        <Link
+        to={`/video/${video._id}`}
+        target="_blank"
+        rel="noopener noreferrer"
+
+    >
+        <div className="w-68 bg-white rounded-lg overflow-hidden shadow-lg hover:scale-105 transition-transform duration-300 cursor-pointer">
             <div className="relative">
                 <img
                     src={video.thumbnail}
@@ -22,16 +28,11 @@ function VideoCard({ video }) {
                     <span>{video.views} views</span> •{" "}
                     <span>Duration: {video.duration.toFixed(2)} sec</span>
                 </div>
-                <Link
-                    to={`/video/${video._id}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-blue-500 hover:underline"
-                >
-                    Watch Video
-                </Link>
+
+
             </div>
         </div>
+                </Link>
     );
 }
 

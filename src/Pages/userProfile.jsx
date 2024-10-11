@@ -151,7 +151,7 @@ function UserProfile() {
 								</h2>
 								<a
 									className="text-black mt-2 hover:text-blue-500"
-									href="https://www.instagram.com/immohitdhiman/"
+									href="https://www.instagram.com/"
 									target="BLANK()"
 								>
 									{userInfo?.data.fullName}

@@ -32,17 +32,17 @@ function DetailedVideo() {
 			setvideo(response.data.data);
 			if (response.data.data.owner._id) {
 				const res = await axios.post(
-					`${backendurl}/subscriptions/issubscribedalready/${response.data.data.owner._id}`,null,
+					`${backendurl}/subscriptions/issubscribedalready/${response.data.data.owner._id}`,
+					null,
 					{
 						withCredentials: true, // Ensure cookies are included in the request
-
 					}
 				);
 				const like = await axios.post(
-					`${backendurl}/likes/isalreadyliked/v/${videoid}`,null,
+					`${backendurl}/likes/isalreadyliked/v/${videoid}`,
+					null,
 					{
 						withCredentials: true, // Ensure cookies are included in the request
-
 					}
 				);
 				// console.log("like=", like.data.data.liked);
@@ -69,10 +69,10 @@ function DetailedVideo() {
 	async function toggleLiked() {
 		try {
 			const like = await axios.post(
-				`${backendurl}/likes/toggle/v/${videoid}`,null,
+				`${backendurl}/likes/toggle/v/${videoid}`,
+				null,
 				{
 					withCredentials: true, // Ensure cookies are included in the request
-
 				}
 			);
 			if (like) {
@@ -95,10 +95,11 @@ function DetailedVideo() {
 
 			const postmycomment = await axios.post(
 				`${backendurl}/comments/${videoid}`,
-				data, {
-					withCredentials: true,  // Ensure cookies are included in the request
+				data,
+				{
+					withCredentials: true, // Ensure cookies are included in the request
 					headers: {
-						"Content-Type": "application/json",  // Set the content type to JSON
+						"Content-Type": "application/json", // Set the content type to JSON
 					},
 				}
 			);
@@ -117,10 +118,10 @@ function DetailedVideo() {
 			console.log("owner id=", ownerId);
 
 			const res = await axios.post(
-				`${backendurl}/subscriptions/c/${ownerId}`,null,
+				`${backendurl}/subscriptions/c/${ownerId}`,
+				null,
 				{
-					withCredentials: true,  // Ensure cookies are included in the request
-
+					withCredentials: true, // Ensure cookies are included in the request
 				}
 			);
 			if (res) {
@@ -147,9 +148,10 @@ function DetailedVideo() {
 		try {
 			// console.log(id);
 			const res = await axios.post(
-				`${backendurl}/likes/toggle/c/${id}`, null,{
-					withCredentials: true,  // Ensure cookies are included in the request
-
+				`${backendurl}/likes/toggle/c/${id}`,
+				null,
+				{
+					withCredentials: true, // Ensure cookies are included in the request
 				}
 			);
 			if (res) {
@@ -173,12 +175,34 @@ function DetailedVideo() {
 	}, [videoid, postedcomment]);
 
 	if (!video) {
-		return <div>Loading video details...</div>;
+		return (
+			<div className="w-full h-[90vh] flex justify-center items-center">
+				<div className="indicator">
+				<div className="indicator-item indicator-bottom">
+					<Link to={`/login`}>
+						<button className="btn btn-primary">
+							Signin/Login
+						</button>
+					</Link>
+				</div>
+				<div className="card border">
+					<div className="card-body">
+						<h2 className="card-title">Signup/SignIn</h2>
+						<p>
+							Signup or Signin to see the complete video
+						</p>
+					</div>
+				</div>
+			</div>
+			</div>
+		);
 	}
 
 	// Return a fallback if video data is somehow undefined or doesn't have a videoFile
 	if (!video.videoFile) {
-		return <div>Video file not available.</div>;
+		return (
+			<div>Video data undefined</div>
+		);
 	}
 	// console.log(video.videoFile);
 	return (
@@ -247,7 +271,7 @@ function DetailedVideo() {
 					<div className="flex-1">
 						<h2 className="text-lg font-semibold text-cyan-600">
 							<Link to={`/user/c/${video.owner.username}`}>
-							{video.owner.username}
+								{video.owner.username}
 							</Link>
 						</h2>
 					</div>
