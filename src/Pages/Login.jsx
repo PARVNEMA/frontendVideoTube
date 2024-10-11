@@ -47,18 +47,18 @@ function Login() {
 			// Set cookies if userInfo is available and contains tokens
 			setCookie("accessToken", userInfo.data.accessToken, {
 				path: "/",
-				httpOnly: true, // Prevent JavaScript from accessing the cookie
+				 // Prevent JavaScript from accessing the cookie
 				sameSite: "none", // Allow cookies to be sent in cross-origin requests
-				secure: false,
+				secure: true,
 			});
 			setCookie(
 				"refreshToken",
 				userInfo.data.refreshToken,
 				{
 					path: "/",
-					httpOnly: true, // Prevent JavaScript from accessing the cookie
+					// Prevent JavaScript from accessing the cookie
 					sameSite: "none", // Allow cookies to be sent in cross-origin
-					secure: false,
+					secure: true,
 				}
 			);
 			// console.log(userInfo.data.accessToken);
