@@ -47,7 +47,7 @@ function Login() {
 			// Set cookies if userInfo is available and contains tokens
 			setCookie("accessToken", userInfo.data.accessToken, {
 				path: "/",
-				 // Prevent JavaScript from accessing the cookie
+				// Prevent JavaScript from accessing the cookie
 				sameSite: "none", // Allow cookies to be sent in cross-origin requests
 				secure: true,
 			});
@@ -63,7 +63,7 @@ function Login() {
 			);
 			// console.log(userInfo.data.accessToken);
 
-			navigate("/userprofile"); // Redirect to user profile after successful login
+			navigate("/"); // Redirect to user profile after successful login
 		}
 	}, [navigate, userInfo]);
 	return (

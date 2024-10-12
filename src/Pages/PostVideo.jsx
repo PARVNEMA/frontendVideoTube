@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -14,10 +14,12 @@ function VideoUploadForm() {
 	const [cookies] = useCookies([
 		"accessToken,refreshToken",
 	]);
+	const [uploading, setuploading] = useState(false);
 
 	// Function to handle form submission
 	const onSubmit = async (data) => {
 		// Create a FormData object to send files
+		setuploading(true);
 		console.log(data);
 		const backendUrl = import.meta.env.VITE_URL;
 
@@ -40,10 +42,14 @@ function VideoUploadForm() {
 				formData,
 				config
 			);
+			if (uploading) {
+			}
 			if (videos) {
 				console.log("Videos has been posted Successfully");
 			}
 			toast.success(videos.data.message);
+
+			setuploading(false);
 		} catch (error) {
 			console.log(error);
 		}
@@ -133,6 +139,14 @@ function VideoUploadForm() {
 					Upload Video
 				</button>
 			</form>
+			{uploading && (
+				<div className="toast">
+					<div className="alert alert-info">
+						uploading video
+						<span className="loading loading-bars loading-lg"></span>
+					</div>
+				</div>
+			)}
 		</div>
 	);
 }
