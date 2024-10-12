@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -10,6 +11,9 @@ function Navbar() {
 	const [theme, setTheme] = useState(
 		localStorage.getItem("theme") || "light"
 	);
+	const [cookies, setCookie, removeCookie] = useCookies([
+		"accessToken,refreshToken",
+	]);
 
 	const navigate = useNavigate();
 	const backendUrl = import.meta.env.VITE_URL;
@@ -21,6 +25,7 @@ function Navbar() {
 					withCredentials: true, // This ensures cookies are included in requests
 					headers: {
 						"Content-Type": "application/json",
+						"Authorization": `Bearer ${cookies.getItem("accessToken")}`
 					},
 				}
 			);
