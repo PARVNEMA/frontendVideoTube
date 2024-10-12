@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
 import { toast } from "react-toastify";
 
 function Tweets() {
@@ -8,6 +9,9 @@ function Tweets() {
 	const [userdata, setuserdata] = useState();
 
 	const backendUrl = import.meta.env.VITE_URL;
+	const [cookies] = useCookies([
+		"accessToken,refreshToken",
+	]);
 	async function getCurrentUser() {
 		try {
 			const res = await axios.get(
@@ -16,6 +20,8 @@ function Tweets() {
 					withCredentials: true, // This ensures cookies are included in requests
 					headers: {
 						"Content-Type": "application/json",
+						Authorization: `Bearer ${cookies.accessToken}`,
+
 					},
 				}
 			);
@@ -35,6 +41,7 @@ function Tweets() {
 					withCredentials: true,
 					headers: {
 						"Content-Type": "application/json",
+						Authorization: `Bearer ${cookies.accessToken}`,
 					},
 				}
 			);
@@ -53,6 +60,7 @@ function Tweets() {
 				withCredentials: true, // This ensures cookies are included in requests
 				headers: {
 					"Content-Type": "application/json",
+					Authorization: `Bearer ${cookies.accessToken}`,
 				},
 			});
 			console.log("all received tweets", res.data.data);

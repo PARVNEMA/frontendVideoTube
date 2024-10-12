@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -15,7 +16,9 @@ function UpdateVideo() {
 	} = useForm();
 
 	const backendUrl = import.meta.env.VITE_URL;
-
+	const [cookies] = useCookies([
+		"accessToken,refreshToken",
+	]);
 	const getvideobyid = async () => {
 		try {
 			const res = await axios.get(
@@ -24,6 +27,7 @@ function UpdateVideo() {
 					withCredentials: true,
 					headers: {
 						"Content-Type": "application/json",
+						Authorization: `Bearer ${cookies.accessToken}`,
 					},
 				}
 			);
@@ -64,6 +68,7 @@ function UpdateVideo() {
 				withCredentials: true,
 				headers: {
 					"Content-Type": "multipart/form-data",
+					Authorization: `Bearer ${cookies.accessToken}`,
 				},
 			};
 			const videos = await axios.patch(
@@ -124,10 +129,14 @@ function UpdateVideo() {
 				</div>
 
 				{/* Thumbnail Input */}
-        <h2>Default thumbnail</h2>
+				<h2>Default thumbnail</h2>
 				<div className="w-full flex justify-center">
-				<img src={videodata?.thumbnail} alt="" className="w-44 h-18 " />
-        </div>
+					<img
+						src={videodata?.thumbnail}
+						alt=""
+						className="w-44 h-18 "
+					/>
+				</div>
 				<div className="mb-4">
 					<label className="block text-sm font-medium text-white">
 						Thumbnail
@@ -138,7 +147,6 @@ function UpdateVideo() {
 						accept="image/*"
 						className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
 						name="thumbnail"
-
 					/>
 					{errors?.thumbnail && (
 						<p className="text-red-500">

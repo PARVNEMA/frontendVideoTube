@@ -1,7 +1,11 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import React from "react";
+import { useCookies } from "react-cookie";
 
+const [cookies] = useCookies([
+	"accessToken,refreshToken",
+]);
 const backendUrl = import.meta.env.VITE_URL;
 export const registerUser = createAsyncThunk(
 	"auth/registerUser",
@@ -33,6 +37,7 @@ export const registerUser = createAsyncThunk(
 				withCredentials: true,
 				headers: {
 					"Content-Type": "multipart/form-data",
+					Authorization: `Bearer ${cookies.accessToken}`,
 				},
 			};
 			// console.log("avatar", avatar[0]);
@@ -66,6 +71,7 @@ export const LoginUser = createAsyncThunk(
 				withCredentials: true,
 				headers: {
 					"Content-Type": "application/json",
+					Authorization: `Bearer ${cookies.accessToken}`,
 				},
 			};
 

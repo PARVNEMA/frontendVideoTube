@@ -2,10 +2,13 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
-
+import { useCookies } from "react-cookie";
 function Sidebar() {
 	const backendUrl = import.meta.env.VITE_URL;
 	const [loggedin, setloggedin] = useState(false);
+	const [cookies] = useCookies([
+		"accessToken,refreshToken",
+	]);
 	async function getCurrentUser() {
 		try {
 			const res = await axios.get(
@@ -14,6 +17,7 @@ function Sidebar() {
 					withCredentials: true, // This ensures cookies are included in requests
 					headers: {
 						"Content-Type": "application/json",
+						Authorization: `Bearer ${cookies.accessToken}`,
 					},
 				}
 			);
@@ -27,7 +31,8 @@ function Sidebar() {
 	async function logout() {
 		try {
 			await axios.post(`${backendUrl}/users/logout`, null, {
-				withCredentials: true, // Ensure cookies are included in the request
+				withCredentials: true,
+				Authorization: `Bearer ${cookies.accessToken}`, // Ensure cookies are included in the request
 			});
 			// Clear localStorage and reset state
 			localStorage.removeItem("userInfo");
@@ -74,8 +79,10 @@ function Sidebar() {
 										className={`justify-between btn btn-outline   `}
 										to={"/"}
 										style={({ isActive }) => {
-											return isActive ? { backgroundColor: "indigo" } : {color:"gray"};
-											}}
+											return isActive
+												? { backgroundColor: "indigo" }
+												: { color: "gray" };
+										}}
 									>
 										Home
 									</NavLink>
@@ -85,8 +92,10 @@ function Sidebar() {
 										className="justify-between btn btn-outline"
 										to={"/watchhistory"}
 										style={({ isActive }) => {
-											return isActive ? { backgroundColor: "indigo" } : {color:"gray"};
-											}}
+											return isActive
+												? { backgroundColor: "indigo" }
+												: { color: "gray" };
+										}}
 									>
 										Watch History
 									</NavLink>
@@ -96,8 +105,10 @@ function Sidebar() {
 										className="justify-between btn  btn-outline"
 										to={"/userprofile"}
 										style={({ isActive }) => {
-											return isActive ? { backgroundColor: "indigo" } : {color:"gray"};
-											}}
+											return isActive
+												? { backgroundColor: "indigo" }
+												: { color: "gray" };
+										}}
 									>
 										View Profile
 									</NavLink>
@@ -107,8 +118,10 @@ function Sidebar() {
 										className="justify-between btn  btn-outline"
 										to={"/publishvideo"}
 										style={({ isActive }) => {
-											return isActive ? { backgroundColor: "indigo" } : {color:"gray"};
-											}}
+											return isActive
+												? { backgroundColor: "indigo" }
+												: { color: "gray" };
+										}}
 									>
 										Publish Video
 									</NavLink>
@@ -118,8 +131,10 @@ function Sidebar() {
 										className="justify-between btn  btn-outline"
 										to={"/tweets"}
 										style={({ isActive }) => {
-											return isActive ? { backgroundColor: "indigo" } : {color:"gray"};
-											}}
+											return isActive
+												? { backgroundColor: "indigo" }
+												: { color: "gray" };
+										}}
 									>
 										Tweet
 									</NavLink>

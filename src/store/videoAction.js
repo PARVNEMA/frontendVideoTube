@@ -1,7 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { useCookies } from "react-cookie";
 
 const backendUrl = import.meta.env.VITE_URL;
+const [cookies] = useCookies(["accessToken,refreshToken"]);
 export const fetchVideos = createAsyncThunk(
 	"video/fetchVideos",
 	async (_, { rejectWithValue }) => {
@@ -12,6 +14,7 @@ export const fetchVideos = createAsyncThunk(
 					withCredentials: true,
 					headers: {
 						"Content-Type": "application/json",
+						Authorization: `Bearer ${cookies.accessToken}`,
 					},
 				}
 			);
@@ -38,6 +41,7 @@ export const postVideos = createAsyncThunk(
 				withCredentials: true,
 				headers: {
 					"Content-Type": "multipart/form-data",
+					Authorization: `Bearer ${cookies.accessToken}`,
 				},
 			};
 			const videos = await axios.post(

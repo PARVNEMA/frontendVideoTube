@@ -2,6 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useCookies } from "react-cookie";
 
 function VideoUploadForm() {
 	// Initialize React Hook Form
@@ -10,6 +11,9 @@ function VideoUploadForm() {
 		handleSubmit,
 		formState: { errors },
 	} = useForm();
+	const [cookies] = useCookies([
+		"accessToken,refreshToken",
+	]);
 
 	// Function to handle form submission
 	const onSubmit = async (data) => {
@@ -28,7 +32,7 @@ function VideoUploadForm() {
 				withCredentials: true,
 				headers: {
 					"Content-Type": "multipart/form-data",
-
+					Authorization: `Bearer ${cookies.accessToken}`,
 				},
 			};
 			const videos = await axios.post(
