@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
 
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -10,7 +11,9 @@ function UserProfile() {
 	const [subscribersInfo, setsubscribersInfo] =
 		useState(null);
 	const [channelvideos, setchannelvideos] = useState(null);
-
+	const [cookies] = useCookies([
+		"accessToken,refreshToken",
+	]);
 	const backendurl = import.meta.env.VITE_URL;
 	async function getCurrentUser() {
 		try {
@@ -21,6 +24,7 @@ function UserProfile() {
 
 					headers: {
 						"Content-Type": "application/json",
+						Authorization: `Bearer ${cookies.accessToken}`,
 					},
 				}
 			);
@@ -41,6 +45,7 @@ function UserProfile() {
 					withCredentials: true,
 					headers: {
 						"Content-Type": "application/json",
+						Authorization: `Bearer ${cookies.accessToken}`,
 					},
 				}
 			);
@@ -65,6 +70,7 @@ function UserProfile() {
 					withCredentials: true,
 					headers: {
 						"Content-Type": "application/json",
+						Authorization: `Bearer ${cookies.accessToken}`,
 					},
 				}
 			);
@@ -88,6 +94,7 @@ function UserProfile() {
 
 				{
 					withCredentials: true,
+					Authorization: `Bearer ${cookies.accessToken}`,
 				}
 			);
 			if (response) {
@@ -105,6 +112,7 @@ function UserProfile() {
 
 				{
 					withCredentials: true,
+					Authorization: `Bearer ${cookies.accessToken}`,
 				}
 			);
 			if (response) {

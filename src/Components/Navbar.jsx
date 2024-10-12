@@ -14,7 +14,7 @@ function Navbar() {
 
 	const navigate = useNavigate();
 	const backendUrl = import.meta.env.VITE_URL;
-	const [cookies, setCookie, removeCookie] = useCookies([
+	const [cookies] = useCookies([
 		"accessToken,refreshToken",
 	]);
 	async function getCurrentUser() {
