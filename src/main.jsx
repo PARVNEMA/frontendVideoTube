@@ -32,6 +32,7 @@ import OtherChannel from "./Pages/OtherChannel.jsx";
 import WatchHistory from "./Pages/WatchHistory.jsx";
 import UpdateVideo from "./Pages/UpdateVideo.jsx";
 import Tweets from "./Pages/Tweets.jsx";
+import UserVideos from "./Pages/UserVideos.jsx";
 const router = createBrowserRouter([
 	{
 		path: "/",
@@ -73,6 +74,10 @@ const router = createBrowserRouter([
 			{
 				path: "/tweets",
 				element: <Tweets />,
+			},
+			{
+				path: "/uservideos",
+				element: <UserVideos />,
 			},
 		],
 	},

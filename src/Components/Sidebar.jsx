@@ -51,7 +51,7 @@ function Sidebar() {
 		<div>
 			{loggedin ? (
 				<>
-					<div className="drawer lg:drawer-open drawer-open ">
+					<div className="drawer lg:drawer-open ">
 						<input
 							id="my-drawer-2"
 							type="checkbox"
@@ -124,6 +124,19 @@ function Sidebar() {
 										}}
 									>
 										Publish Video
+									</NavLink>
+								</li>
+								<li>
+									<NavLink
+										className="justify-between btn  btn-outline"
+										to={"/uservideos"}
+										style={({ isActive }) => {
+											return isActive
+												? { backgroundColor: "indigo" }
+												: { color: "gray" };
+										}}
+									>
+										User Videos
 									</NavLink>
 								</li>
 								<li>

@@ -7,7 +7,10 @@ function Tweets() {
 	const [tweet, settweet] = useState("");
 	const [alltweet, setalltweet] = useState([]);
 	const [userdata, setuserdata] = useState();
-
+	const [isTodoEditable, setIsTodoEditable] =
+		useState(false);
+	const [todoMsg, setTodoMsg] =
+		useState("");
 	const backendUrl = import.meta.env.VITE_URL;
 	const [cookies] = useCookies([
 		"accessToken,refreshToken",
@@ -21,7 +24,6 @@ function Tweets() {
 					headers: {
 						"Content-Type": "application/json",
 						Authorization: `Bearer ${cookies.accessToken}`,
-
 					},
 				}
 			);
@@ -54,6 +56,24 @@ function Tweets() {
 			toast.error(error);
 		}
 	}
+	async function deleteTweet(id) {
+		try {
+			const res = await axios.delete(
+				`${backendUrl}/tweets/${id}`,
+				{
+					withCredentials: true,
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: `Bearer ${cookies.accessToken}`,
+					},
+				}
+			);
+			toast.success("deleted tweet succesfully");
+			// console.log(user);
+		} catch (error) {
+			toast.error(error);
+		}
+	}
 	async function fetchAllTweets() {
 		try {
 			const res = await axios.get(`${backendUrl}/tweets`, {
@@ -71,13 +91,34 @@ function Tweets() {
 			toast.error(error);
 		}
 	}
+
+	async function editTodo(id){
+		try {
+			const res = await axios.patch(`${backendUrl}/tweets/${id}`, {
+				content: todoMsg,
+			},{
+				withCredentials: true, // This ensures cookies are included in requests
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: `Bearer ${cookies.accessToken}`,
+				},
+			});
+			setIsTodoEditable(false)
+			setTodoMsg(" ")
+			toast.success("Edited tweet succesfully");
+
+			// console.log(user);
+		} catch (error) {
+			toast.error(error);
+		}
+	}
 	useEffect(() => {
 		getCurrentUser();
 		fetchAllTweets();
 	}, [settweet]);
 	return (
 		<div>
-			<label className="input input-bordered flex items-center gap-2">
+			<label className="input input-bordered flex items-center gap-2 ">
 				<input
 					type="text"
 					className="grow"
@@ -96,8 +137,8 @@ function Tweets() {
 							item?.tweets?._id === userdata?.data?._id
 								? "chat-end"
 								: "chat-start"
-						} w-full
-						}`}
+						}
+						} `}
 					>
 						<div className="chat-image avatar">
 							<div className="w-10 rounded-full">
@@ -113,8 +154,24 @@ function Tweets() {
 								{item.tweets.createdAt}
 							</time>
 						</div>
-						<div className=" border-base-content card bg-base-100 w-[95%] border  p-2">
-							{item.content}
+					<div>
+						{item.content}
+					</div>
+						<div
+							className={`${
+								item?.tweets?._id === userdata?.data?._id
+									? "text-red-500"
+									: "hidden"
+							}`}
+						>
+							{" "}
+							<button
+								onClick={() => {
+									deleteTweet(item._id);
+								}}
+							>
+								Delete
+							</button>
 						</div>
 					</div>
 				))}

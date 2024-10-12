@@ -5,12 +5,11 @@ import { useCookies } from "react-cookie";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 function UserProfile() {
-	const navigate = useNavigate();
 	const [loggedIn, setLoggedIn] = useState(false);
 	const [userInfo, setUserInfo] = useState(null);
 	const [subscribersInfo, setsubscribersInfo] =
 		useState(null);
-	const [channelvideos, setchannelvideos] = useState(null);
+
 	const [cookies] = useCookies([
 		"accessToken,refreshToken",
 	]);
@@ -61,67 +60,6 @@ function UserProfile() {
 			toast.error(error.message);
 		}
 	};
-	const getChannelVideos = async () => {
-		try {
-			console.log("user id", userInfo?.data?._id);
-			const res = await axios.get(
-				`${backendurl}/videos/allchannelvideos/${userInfo?.data?._id}`,
-				{
-					withCredentials: true,
-					headers: {
-						"Content-Type": "application/json",
-						Authorization: `Bearer ${cookies.accessToken}`,
-					},
-				}
-			);
-
-			console.log("channel videos", res.data.data);
-			setchannelvideos(res.data.data);
-		} catch (error) {
-			console.log(
-				"error in getting channel subscribers",
-				error
-			);
-
-			toast.error(error.message);
-		}
-	};
-
-	const deleteVideo = async (id) => {
-		try {
-			const response = await axios.delete(
-				`${backendurl}/videos/${id}`,
-
-				{
-					withCredentials: true,
-					Authorization: `Bearer ${cookies.accessToken}`,
-				}
-			);
-			if (response) {
-				toast.success("video deleted succesfully");
-			}
-		} catch (error) {
-			toast.error(error.message);
-		}
-	};
-	const ToggleVideo = async (id) => {
-		try {
-			const response = await axios.patch(
-				`${backendurl}/videos/toggle/publish/${id}`,
-				null,
-
-				{
-					withCredentials: true,
-					Authorization: `Bearer ${cookies.accessToken}`,
-				}
-			);
-			if (response) {
-				toast.success("video Status Toggled succesfully");
-			}
-		} catch (error) {
-			toast.error(error.message);
-		}
-	};
 
 	useEffect(() => {
 		getCurrentUser();
@@ -129,15 +67,14 @@ function UserProfile() {
 	useEffect(() => {
 		if (loggedIn) {
 			getSubscribers();
-			getChannelVideos();
 		}
 	}, [userInfo]);
 
 	return (
 		<div>
 			{loggedIn ? (
-				<div className="h-screen w-screen  flex flex-wrap  justify-center  ">
-					<div className="h-screen w-screen   shadow-lg    transform   duration-200 easy-in-out">
+				<div className="hero bg-base-200 min-h-screen ">
+					<div className="h-screen   shadow-lg    transform   duration-200 easy-in-out">
 						<div className=" h-[300px] overflow-hidden">
 							<img
 								className="w-full object-cover h-full"
@@ -189,67 +126,6 @@ function UserProfile() {
 								</div>
 							</div>
 						</div>
-					</div>
-					<h1 className="text-4xl font-semibold">
-						All Videos
-					</h1>
-					<div className="grid w-full grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 ">
-						{channelvideos &&
-							channelvideos.map((item) => (
-								<div className="card bg-base-100 w-96 shadow-xl">
-									<figure className="px-10 pt-10">
-										<img
-											src={item.thumbnail}
-											alt="Shoes"
-											className="w-full h-48 object-cover"
-										/>
-									</figure>
-									<div className="card-body items-center text-center">
-										<h2 className="card-title">
-											{item.title}
-										</h2>
-										<div className="card-actions">
-											<button className="btn btn-primary">
-												<Link to={`/video/${item._id}`}>
-													Watch now
-												</Link>
-											</button>
-
-											<button
-												className={`btn btn-primary ${
-													item.owner === userInfo?.data?._id
-														? "bg-red-500"
-														: "hidden"
-												}`}
-												onClick={() =>
-													deleteVideo(item._id)
-												}
-											>
-												Delete Video
-											</button>
-											<button
-												className={`btn btn-primary `}
-												onClick={() => {
-													navigate(
-														`/updatevideo/${item._id}`
-													);
-												}}
-											>
-												update Video
-											</button>
-
-											<input
-												type="checkbox"
-												className="toggle toggle-info"
-												defaultChecked={item.isPublished}
-												onChange={() =>
-													ToggleVideo(item._id)
-												}
-											/>
-										</div>
-									</div>
-								</div>
-							))}
 					</div>
 				</div>
 			) : (

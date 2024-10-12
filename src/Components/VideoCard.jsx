@@ -9,7 +9,7 @@ function VideoCard({ video }) {
         rel="noopener noreferrer"
 
     >
-        <div className="w-68 bg-white rounded-lg overflow-hidden shadow-lg hover:scale-105 transition-transform duration-300 cursor-pointer">
+        <div className="w-68 bg-slate-200 rounded-lg overflow-hidden shadow-lg hover:scale-105 transition-transform duration-300 cursor-pointer">
             <div className="relative">
                 <img
                     src={video.thumbnail}
