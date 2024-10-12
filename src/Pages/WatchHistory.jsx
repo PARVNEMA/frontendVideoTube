@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -9,6 +10,9 @@ function WatchHistory() {
 	const [watchHistory, setwatchHistory] = useState(null);
 	const backendurl = import.meta.env.VITE_URL;
 	async function getCurrentUser() {
+		const [cookies] = useCookies([
+			"accessToken,refreshToken",
+		]);
 		try {
 			const res = await axios.get(
 				`${backendurl}/users/current-user`,
@@ -17,6 +21,7 @@ function WatchHistory() {
 
 					headers: {
 						"Content-Type": "application/json",
+						Authorization: `Bearer ${cookies.accessToken}`,
 					},
 				}
 			);
@@ -37,6 +42,7 @@ function WatchHistory() {
 
 					headers: {
 						"Content-Type": "application/json",
+						Authorization: `Bearer ${cookies.accessToken}`,
 					},
 				}
 			);

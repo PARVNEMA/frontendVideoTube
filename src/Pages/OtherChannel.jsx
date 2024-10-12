@@ -9,7 +9,11 @@ function OtherChannel() {
 	const [channelinfo, setchannelinfo] = useState(null);
 
 	const [channelvideos, setchannelvideos] = useState(null);
-
+	const [cookies] = useCookiesconst [cookies] = useCookies([
+		"accessToken,refreshToken",
+	]);([
+		"accessToken,refreshToken",
+	]);
 	const backendurl = import.meta.env.VITE_URL;
 	async function getChannelUser() {
 		try {
@@ -20,6 +24,7 @@ function OtherChannel() {
 
 					headers: {
 						"Content-Type": "application/json",
+						Authorization: `Bearer ${cookies.accessToken}`,
 					},
 				}
 			);
@@ -44,6 +49,7 @@ function OtherChannel() {
 					withCredentials: true,
 					headers: {
 						"Content-Type": "application/json",
+						Authorization: `Bearer ${cookies.accessToken}`,
 					},
 				}
 			);

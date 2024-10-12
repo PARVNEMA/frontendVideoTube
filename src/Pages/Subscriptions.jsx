@@ -2,10 +2,13 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import React, { useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
 function Subscriptions() {
 	const backendurl = import.meta.env.VITE_URL;
 	const [channels, setchannels] = useState([]);
-
+	const [cookies] = useCookies([
+		"accessToken,refreshToken",
+	]);
 	const fetchsubscriptions = async () => {
 		try {
 			const id = JSON.parse(
@@ -19,6 +22,7 @@ function Subscriptions() {
 					withCredentials: true,
 					headers: {
 						"Content-Type": "application/json",
+						Authorization: `Bearer ${cookies.accessToken}`,
 					},
 				}
 			);

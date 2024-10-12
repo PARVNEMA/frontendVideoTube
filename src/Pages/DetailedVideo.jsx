@@ -4,6 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useCookies } from "react-cookie";
 
 function DetailedVideo() {
 	const [video, setvideo] = useState(null);
@@ -16,6 +17,9 @@ function DetailedVideo() {
 	const { register, handleSubmit } = useForm();
 	const backendurl = import.meta.env.VITE_URL;
 	const { videoid } = useParams();
+	const [cookies] = useCookies([
+		"accessToken,refreshToken",
+	]);
 	async function fetchvideoDetails() {
 		try {
 			const response = await axios.get(
@@ -24,6 +28,7 @@ function DetailedVideo() {
 					withCredentials: true,
 					headers: {
 						"Content-Type": "application/json",
+						Authorization: `Bearer ${cookies.accessToken}`,
 					},
 				}
 			);
@@ -35,14 +40,16 @@ function DetailedVideo() {
 					`${backendurl}/subscriptions/issubscribedalready/${response.data.data.owner._id}`,
 					null,
 					{
-						withCredentials: true, // Ensure cookies are included in the request
+						withCredentials: true,
+						Authorization: `Bearer ${cookies.accessToken}`, // Ensure cookies are included in the request
 					}
 				);
 				const like = await axios.post(
 					`${backendurl}/likes/isalreadyliked/v/${videoid}`,
 					null,
 					{
-						withCredentials: true, // Ensure cookies are included in the request
+						withCredentials: true,
+						Authorization: `Bearer ${cookies.accessToken}`,// Ensure cookies are included in the request
 					}
 				);
 				// console.log("like=", like.data.data.liked);
@@ -60,6 +67,7 @@ function DetailedVideo() {
 				withCredentials: true,
 				headers: {
 					"Content-Type": "application/json",
+					Authorization: `Bearer ${cookies.accessToken}`,
 				},
 			}
 		);
@@ -72,7 +80,8 @@ function DetailedVideo() {
 				`${backendurl}/likes/toggle/v/${videoid}`,
 				null,
 				{
-					withCredentials: true, // Ensure cookies are included in the request
+					withCredentials: true,
+					Authorization: `Bearer ${cookies.accessToken}`, // Ensure cookies are included in the request
 				}
 			);
 			if (like) {
@@ -99,7 +108,8 @@ function DetailedVideo() {
 				{
 					withCredentials: true, // Ensure cookies are included in the request
 					headers: {
-						"Content-Type": "application/json", // Set the content type to JSON
+						"Content-Type": "application/json",
+						Authorization: `Bearer ${cookies.accessToken}`, // Set the content type to JSON
 					},
 				}
 			);
@@ -121,7 +131,8 @@ function DetailedVideo() {
 				`${backendurl}/subscriptions/c/${ownerId}`,
 				null,
 				{
-					withCredentials: true, // Ensure cookies are included in the request
+					withCredentials: true,
+					Authorization: `Bearer ${cookies.accessToken}`, // Ensure cookies are included in the request
 				}
 			);
 			if (res) {
@@ -151,7 +162,8 @@ function DetailedVideo() {
 				`${backendurl}/likes/toggle/c/${id}`,
 				null,
 				{
-					withCredentials: true, // Ensure cookies are included in the request
+					withCredentials: true,
+					Authorization: `Bearer ${cookies.accessToken}`, // Ensure cookies are included in the request
 				}
 			);
 			if (res) {
