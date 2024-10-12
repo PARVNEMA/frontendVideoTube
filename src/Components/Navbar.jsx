@@ -30,7 +30,7 @@ function Navbar() {
 				}
 			);
 			console.log("access toke cookies",cookies.accessToken);
-			g
+			
 			console.log("current user", res.data);
 			setLoggedIn(true);
 			setdata(res.data.data);

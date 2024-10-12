@@ -49,7 +49,7 @@ function DetailedVideo() {
 					null,
 					{
 						withCredentials: true,
-						Authorization: `Bearer ${cookies.accessToken}`,// Ensure cookies are included in the request
+						Authorization: `Bearer ${cookies.accessToken}`, // Ensure cookies are included in the request
 					}
 				);
 				// console.log("like=", like.data.data.liked);
@@ -181,40 +181,58 @@ function DetailedVideo() {
 		}
 	}
 
+	async function getCurrentUser() {
+		try {
+			const res = await axios.get(
+				`${backendurl}/users/current-user`,
+				{
+					withCredentials: true, // This ensures cookies are included in requests
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: `Bearer ${cookies.accessToken}`,
+					},
+				}
+			);
+			console.log("current user in detailed video", res.data);
+			setuserdata(res.data);
+			// console.log(user);
+		} catch (error) {
+			toast.error(error);
+		}
+	}
 	useEffect(() => {
 		fetchvideoDetails();
 		fetchVideoComments();
+		getCurrentUser();
 	}, [videoid, postedcomment]);
 
 	if (!video) {
 		return (
 			<div className="w-full h-[90vh] flex justify-center items-center">
 				<div className="indicator">
-				<div className="indicator-item indicator-bottom">
-					<Link to={`/login`}>
-						<button className="btn btn-primary">
-							Signin/Login
-						</button>
-					</Link>
-				</div>
-				<div className="card border">
-					<div className="card-body">
-						<h2 className="card-title">Signup/SignIn</h2>
-						<p>
-							Signup or Signin to see the complete video
-						</p>
+					<div className="indicator-item indicator-bottom">
+						<Link to={`/login`}>
+							<button className="btn btn-primary">
+								Signin/Login
+							</button>
+						</Link>
+					</div>
+					<div className="card border">
+						<div className="card-body">
+							<h2 className="card-title">Signup/SignIn</h2>
+							<p>
+								Signup or Signin to see the complete video
+							</p>
+						</div>
 					</div>
 				</div>
-			</div>
 			</div>
 		);
 	}
 
 	// Return a fallback if video data is somehow undefined or doesn't have a videoFile
 	if (!video.videoFile) {
-		return (
-			<div>Video data undefined</div>
-		);
+		return <div>Video data undefined</div>;
 	}
 	// console.log(video.videoFile);
 	return (

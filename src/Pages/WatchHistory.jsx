@@ -9,10 +9,10 @@ function WatchHistory() {
 	const [userInfo, setUserInfo] = useState(null);
 	const [watchHistory, setwatchHistory] = useState(null);
 	const backendurl = import.meta.env.VITE_URL;
+	const [cookies] = useCookies([
+		"accessToken,refreshToken",
+	]);
 	async function getCurrentUser() {
-		const [cookies] = useCookies([
-			"accessToken,refreshToken",
-		]);
 		try {
 			const res = await axios.get(
 				`${backendurl}/users/current-user`,
