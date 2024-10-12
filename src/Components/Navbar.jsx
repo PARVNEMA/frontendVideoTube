@@ -11,12 +11,12 @@ function Navbar() {
 	const [theme, setTheme] = useState(
 		localStorage.getItem("theme") || "light"
 	);
-	const [cookies, setCookie, removeCookie] = useCookies([
-		"accessToken,refreshToken",
-	]);
 
 	const navigate = useNavigate();
 	const backendUrl = import.meta.env.VITE_URL;
+	const [cookies, setCookie, removeCookie] = useCookies([
+		"accessToken,refreshToken",
+	]);
 	async function getCurrentUser() {
 		try {
 			const res = await axios.get(
@@ -25,10 +25,12 @@ function Navbar() {
 					withCredentials: true, // This ensures cookies are included in requests
 					headers: {
 						"Content-Type": "application/json",
-						"Authorization": `Bearer ${cookies.getItem("accessToken")}`
+						"Authorization": `Bearer ${cookies.accessToken}`
 					},
 				}
 			);
+			console.log("access toke cookies",cookies.accessToken);
+			g
 			console.log("current user", res.data);
 			setLoggedIn(true);
 			setdata(res.data.data);
