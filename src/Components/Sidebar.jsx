@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useCookies } from "react-cookie";
 function Sidebar() {
@@ -48,7 +48,7 @@ function Sidebar() {
 		getCurrentUser();
 	}, [loggedin]);
 	return (
-		<div>
+		<div className="h-full">
 			{loggedin ? (
 				<>
 					<div className="drawer lg:drawer-open ">
@@ -80,7 +80,7 @@ function Sidebar() {
 										to={"/"}
 										style={({ isActive }) => {
 											return isActive
-												? { backgroundColor: "indigo" }
+												? { backgroundColor: "green" }
 												: { color: "gray" };
 										}}
 									>
@@ -163,7 +163,18 @@ function Sidebar() {
 					</div>
 				</>
 			) : (
-				<> Login first</>
+				<>
+				<div className="h-[90vh] flex flex-col items-center justify-center gap-6  ">
+				<img src="../../public/logo.png" alt="Nature Tube" className="h-80 w-70" />
+					<p className="font-medium">Login/Signup to have more accessibility</p>
+					<Link to="/login">
+					<button className="btn glass">Login</button>
+					</Link>
+					<Link to="/signup">
+					<button className="btn glass">Sign Up</button>
+					</Link>
+				</div>
+				</>
 			)}
 		</div>
 	);

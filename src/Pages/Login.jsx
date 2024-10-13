@@ -77,13 +77,11 @@ function Login() {
 							</a>
 
 							<h1 className="mt-6 text-2xl font-bold ghost-white sm:text-3xl md:text-4xl :text-white text-center">
-								Welcome to Squid
+								Welcome to NatureTube
 							</h1>
 
 							<p className="mt-4 leading-relaxed text-gray-500 :text-gray-400">
-								Lorem, ipsum dolor sit amet consectetur
-								adipisicing elit. Eligendi nam dolorum
-								aliquam, quibusdam aperiam voluptatum.
+							Welcome to NatureTube where you can explore about nature and can share beautiful nature videos around you
 							</p>
 
 							<form

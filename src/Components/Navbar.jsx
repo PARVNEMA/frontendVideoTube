@@ -30,7 +30,7 @@ function Navbar() {
 				}
 			);
 			console.log("access toke cookies",cookies.accessToken);
-			
+
 			console.log("current user", res.data);
 			setLoggedIn(true);
 			setdata(res.data.data);
@@ -77,7 +77,9 @@ function Navbar() {
 		<div className="navbar w-full bg-base-100 border border-b-purple-500 border-b-2 mb-4">
 			<div className="flex-1">
 				<a className="btn btn-ghost text-xl">
-					<Link to={"/"}>daisyUI</Link>
+					<Link to={"/"}>
+				<img src="../../public/mainlogo.png" alt="" className="w-50 h-12" />
+					</Link>
 				</a>
 			</div>
 			<label className="swap swap-rotate">
