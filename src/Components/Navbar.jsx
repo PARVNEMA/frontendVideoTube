@@ -78,7 +78,7 @@ function Navbar() {
 			<div className="flex-1">
 				<a className="btn btn-ghost text-xl">
 					<Link to={"/"}>
-				<img src="../../public/mainlogo.png" alt="" className="w-50 h-12" />
+				<img src="/mainlogo.png" alt="" className="w-50 h-12" />
 					</Link>
 				</a>
 			</div>

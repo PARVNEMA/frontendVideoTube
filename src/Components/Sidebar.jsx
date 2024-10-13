@@ -165,7 +165,7 @@ function Sidebar() {
 			) : (
 				<>
 				<div className="h-[90vh] flex flex-col items-center justify-center gap-6  ">
-				<img src="../../public/logo.png" alt="Nature Tube" className="h-80 w-70" />
+				<img src="/logo.png" alt="Nature Tube" className="h-80 w-70" />
 					<p className="font-medium">Login/Signup to have more accessibility</p>
 					<Link to="/login">
 					<button className="btn glass">Login</button>
