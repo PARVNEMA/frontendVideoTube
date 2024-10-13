@@ -33,6 +33,8 @@ import WatchHistory from "./Pages/WatchHistory.jsx";
 import UpdateVideo from "./Pages/UpdateVideo.jsx";
 import Tweets from "./Pages/Tweets.jsx";
 import UserVideos from "./Pages/UserVideos.jsx";
+import { AuthProvider } from "./hooks/logincontext.jsx";
+
 const router = createBrowserRouter([
 	{
 		path: "/",
@@ -86,6 +88,7 @@ createRoot(document.getElementById("root")).render(
 	<StrictMode>
 		<CookiesProvider defaultSetOptions={{ path: "/" }}>
 			<Provider store={store}>
+				<AuthProvider>
 				<RouterProvider router={router} />
 				<ToastContainer
 					position="bottom-right"
@@ -100,6 +103,7 @@ createRoot(document.getElementById("root")).render(
 					theme="dark"
 					transition={Bounce}
 				/>
+			</AuthProvider>
 			</Provider>
 		</CookiesProvider>
 	</StrictMode>

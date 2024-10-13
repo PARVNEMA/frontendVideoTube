@@ -6,7 +6,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { useAuth } from "../hooks/logincontext";
+
+
 function Login() {
+	const {dispatch}=useAuth();
 	const { register, handleSubmit } = useForm();
 	const [cookies, setCookie, removeCookie] = useCookies([
 		"accessToken,refreshToken",
@@ -34,6 +38,7 @@ function Login() {
 				config
 			);
 			setuserInfo(res.data);
+			dispatch({type:'LOGIN'})
 			console.log(res.data);
 		} catch (error) {
 			console.log(error);

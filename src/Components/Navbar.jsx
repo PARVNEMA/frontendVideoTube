@@ -5,13 +5,14 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useAuth } from "../hooks/logincontext";
 function Navbar() {
 	const [data, setdata] = useState(null);
 	const [loggedin, setLoggedIn] = useState(false);
 	const [theme, setTheme] = useState(
 		localStorage.getItem("theme") || "light"
 	);
-
+	const { state, dispatch } = useAuth();
 	const navigate = useNavigate();
 	const backendUrl = import.meta.env.VITE_URL;
 	const [cookies] = useCookies([
@@ -25,11 +26,14 @@ function Navbar() {
 					withCredentials: true, // This ensures cookies are included in requests
 					headers: {
 						"Content-Type": "application/json",
-						"Authorization": `Bearer ${cookies.accessToken}`
+						Authorization: `Bearer ${cookies.accessToken}`,
 					},
 				}
 			);
-			console.log("access toke cookies",cookies.accessToken);
+			console.log(
+				"access toke cookies",
+				cookies.accessToken
+			);
 
 			console.log("current user", res.data);
 			setLoggedIn(true);
@@ -47,7 +51,7 @@ function Navbar() {
 			.querySelector("html")
 			.setAttribute("data-theme", localTheme);
 		getCurrentUser();
-	}, [ theme]);
+	}, [theme, state.isLoggedIn]);
 
 	// Logout function
 	async function logout() {
@@ -78,7 +82,11 @@ function Navbar() {
 			<div className="flex-1">
 				<a className="btn btn-ghost text-xl">
 					<Link to={"/"}>
-				<img src="/mainlogo.png" alt="" className="w-50 h-12" />
+						<img
+							src="/mainlogo.png"
+							alt=""
+							className="w-50 h-12"
+						/>
 					</Link>
 				</a>
 			</div>
@@ -106,7 +114,7 @@ function Navbar() {
 			</label>
 			<div className="flex-none px-4">
 				<div className="dropdown dropdown-end">
-					{loggedin ? (
+					{state.isLoggedIn ? (
 						<>
 							<div className="dropdown dropdown-end">
 								<div

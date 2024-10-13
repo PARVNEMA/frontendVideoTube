@@ -3,12 +3,17 @@ import React, { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useCookies } from "react-cookie";
+import { useAuth } from "../hooks/logincontext";
+
 function Sidebar() {
 	const backendUrl = import.meta.env.VITE_URL;
 	const [loggedin, setloggedin] = useState(false);
 	const [cookies] = useCookies([
 		"accessToken,refreshToken",
 	]);
+
+	const { state, dispatch } = useAuth();
+
 	async function getCurrentUser() {
 		try {
 			const res = await axios.get(
@@ -37,6 +42,7 @@ function Sidebar() {
 			// Clear localStorage and reset state
 			localStorage.removeItem("userInfo");
 			setloggedin(false);
+			dispatch({ type: "LOGOUT" });
 			toast.success("Logout successful");
 			// Redirect to login page
 			navigate("/login");
@@ -46,10 +52,10 @@ function Sidebar() {
 	}
 	useEffect(() => {
 		getCurrentUser();
-	}, [loggedin]);
+	}, [loggedin,state.isLoggedIn]);
 	return (
 		<div className="h-full">
-			{loggedin ? (
+			{state.isLoggedIn ? (
 				<>
 					<div className="drawer lg:drawer-open ">
 						<input
@@ -164,16 +170,22 @@ function Sidebar() {
 				</>
 			) : (
 				<>
-				<div className="h-[90vh] flex flex-col items-center justify-center gap-6  ">
-				<img src="/logo.png" alt="Nature Tube" className="h-80 w-70" />
-					<p className="font-medium">Login/Signup to have more accessibility</p>
-					<Link to="/login">
-					<button className="btn glass">Login</button>
-					</Link>
-					<Link to="/signup">
-					<button className="btn glass">Sign Up</button>
-					</Link>
-				</div>
+					<div className="h-[90vh] flex flex-col items-center justify-center gap-6  ">
+						<img
+							src="/logo.png"
+							alt="Nature Tube"
+							className="h-80 w-70"
+						/>
+						<p className="font-medium">
+							Login/Signup to have more accessibility
+						</p>
+						<Link to="/login">
+							<button className="btn glass">Login</button>
+						</Link>
+						<Link to="/signup">
+							<button className="btn glass">Sign Up</button>
+						</Link>
+					</div>
 				</>
 			)}
 		</div>
