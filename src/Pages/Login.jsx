@@ -6,11 +6,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { toast } from "react-toastify";
 import axios from "axios";
-import { useAuth } from "../hooks/logincontext";
-
+import { useAuth } from "../hooks/Logincontext";
 
 function Login() {
-	const {dispatch}=useAuth();
+	const { dispatch } = useAuth();
 	const { register, handleSubmit } = useForm();
 	const [cookies, setCookie, removeCookie] = useCookies([
 		"accessToken,refreshToken",
@@ -38,7 +37,7 @@ function Login() {
 				config
 			);
 			setuserInfo(res.data);
-			dispatch({type:'LOGIN'})
+			dispatch({ type: "LOGIN" });
 			console.log(res.data);
 		} catch (error) {
 			console.log(error);
@@ -86,7 +85,9 @@ function Login() {
 							</h1>
 
 							<p className="mt-4 leading-relaxed text-gray-500 :text-gray-400">
-							Welcome to NatureTube where you can explore about nature and can share beautiful nature videos around you
+								Welcome to NatureTube where you can explore
+								about nature and can share beautiful nature
+								videos around you
 							</p>
 
 							<form

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useCookies } from "react-cookie";
-import { useAuth } from "../hooks/logincontext";
+import { useAuth } from "../hooks/Logincontext";
 
 function Sidebar() {
 	const backendUrl = import.meta.env.VITE_URL;
@@ -52,7 +52,7 @@ function Sidebar() {
 	}
 	useEffect(() => {
 		getCurrentUser();
-	}, [loggedin,state.isLoggedIn]);
+	}, [loggedin, state.isLoggedIn]);
 	return (
 		<div className="h-full">
 			{state.isLoggedIn ? (
