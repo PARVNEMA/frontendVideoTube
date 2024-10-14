@@ -22,11 +22,7 @@ import { CookiesProvider } from "react-cookie";
 import PostVideo from "./Pages/PostVideo.jsx";
 import DetailedVideo from "./Pages/DetailedVideo.jsx";
 import Logout from "./Pages/Logout.jsx";
-import {
-	Bounce,
-	ToastContainer,
-
-} from "react-toastify";
+import { Bounce, ToastContainer } from "react-toastify";
 import Subscriptions from "./Pages/Subscriptions.jsx";
 import OtherChannel from "./Pages/OtherChannel.jsx";
 import WatchHistory from "./Pages/WatchHistory.jsx";
@@ -34,8 +30,6 @@ import UpdateVideo from "./Pages/UpdateVideo.jsx";
 import Tweets from "./Pages/Tweets.jsx";
 import UserVideos from "./Pages/UserVideos.jsx";
 import { AuthProvider } from "./hooks/Logincontext.jsx";
-
-
 
 const router = createBrowserRouter([
 	{
@@ -91,21 +85,21 @@ createRoot(document.getElementById("root")).render(
 		<CookiesProvider defaultSetOptions={{ path: "/" }}>
 			<Provider store={store}>
 				<AuthProvider>
-				<RouterProvider router={router} />
-				<ToastContainer
-					position="bottom-right"
-					autoClose={5000}
-					hideProgressBar={false}
-					newestOnTop={false}
-					closeOnClick
-					rtl={false}
-					pauseOnFocusLoss
-					draggable
-					pauseOnHover
-					theme="dark"
-					transition={Bounce}
-				/>
-			</AuthProvider>
+					<RouterProvider router={router} />
+					<ToastContainer
+						position="bottom-right"
+						autoClose={5000}
+						hideProgressBar={false}
+						newestOnTop={false}
+						closeOnClick
+						rtl={false}
+						pauseOnFocusLoss
+						draggable
+						pauseOnHover
+						theme="dark"
+						transition={Bounce}
+					/>
+				</AuthProvider>
 			</Provider>
 		</CookiesProvider>
 	</StrictMode>
