@@ -5,7 +5,7 @@ function VideoCard({ video }) {
     return (
         <Link
         to={`/video/${video._id}`}
-        target="_blank"
+        
         rel="noopener noreferrer"
 
     >
