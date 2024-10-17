@@ -181,6 +181,7 @@ function DetailedVideo() {
 		}
 	}
 
+
 	async function getCurrentUser() {
 		try {
 			const res = await axios.get(

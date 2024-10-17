@@ -54,7 +54,7 @@ function Sidebar() {
 		getCurrentUser();
 	}, [loggedin, state.isLoggedIn]);
 	return (
-		<div className="h-full">
+		<div className="h-full w-max">
 			{state.isLoggedIn ? (
 				<>
 					<div className="drawer lg:drawer-open ">

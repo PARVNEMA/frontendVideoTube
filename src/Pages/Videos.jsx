@@ -29,7 +29,8 @@ function Videos() {
 		const skeletonArray = Array(20).fill(0);
 
 		return (
-			<div className="flex gap-8 flex-wrap h-full">
+			<div className="flex gap-4 flex-wrap h-full ">
+<div className="text-center w-full flex justify-center">Please Wait a little if  not loading Try Refreshing Page<span className="loading loading-spinner loading-lg"></span></div>
 				{skeletonArray.map((_, index) => (
 					<div
 						key={index}
@@ -37,15 +38,18 @@ function Videos() {
 					>
 						<div className="skeleton h-32 w-full"></div>
 						<div className="skeleton h-4 w-28"></div>
+
 						<div className="skeleton h-4 w-full"></div>
 						<div className="skeleton h-4 w-full"></div>
 					</div>
+
 				))}
+
 			</div>
 		);
 	};
 	return (
-		<div className=" p-0 min-h-screen">
+		<div className=" p-0 min-h-screen ">
 			{loading ? (
 				<Skeletonloader />
 			) : (
