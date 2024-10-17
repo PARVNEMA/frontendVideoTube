@@ -146,7 +146,7 @@ function DetailedVideo() {
 				{
 					withCredentials: true,
 					headers: {
-						
+
 						Authorization: `Bearer ${cookies.accessToken}`, // Set the content type to JSON
 					}, // Ensure cookies are included in the request
 				}
@@ -180,7 +180,7 @@ function DetailedVideo() {
 				{
 					withCredentials: true,
 					headers: {
-						"Content-Type": "application/json",
+			
 						Authorization: `Bearer ${cookies.accessToken}`, // Set the content type to JSON
 					}, // Ensure cookies are included in the request
 				}
