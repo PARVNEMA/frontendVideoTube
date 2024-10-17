@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { toast } from "react-toastify";
 import axios from "axios";
-import { useAuth } from "../hooks/Logincontext";
+import { useAuth } from "./hooks/Logincontext.jsx";
 
 function Login() {
 	const { dispatch } = useAuth();
