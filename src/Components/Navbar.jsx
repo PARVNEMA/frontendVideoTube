@@ -124,7 +124,7 @@ function Navbar() {
 									className="btn btn-ghost btn-circle avatar"
 								>
 									<div className="w-24 rounded-full">
-										<img src={data.avatar} />
+										<img src={data?.avatar} />
 									</div>
 								</div>
 								<ul
