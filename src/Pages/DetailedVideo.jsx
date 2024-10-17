@@ -41,15 +41,22 @@ function DetailedVideo() {
 					null,
 					{
 						withCredentials: true,
-						Authorization: `Bearer ${cookies.accessToken}`, // Ensure cookies are included in the request
+						headers: {
+
+							Authorization: `Bearer ${cookies.accessToken}`,
+						},
 					}
 				);
 				const like = await axios.post(
 					`${backendurl}/likes/isalreadyliked/v/${videoid}`,
 					null,
+
 					{
 						withCredentials: true,
-						Authorization: `Bearer ${cookies.accessToken}`, // Ensure cookies are included in the request
+						headers: {
+
+							Authorization: `Bearer ${cookies.accessToken}`,
+						},
 					}
 				);
 				// console.log("like=", like.data.data.liked);
@@ -76,12 +83,18 @@ function DetailedVideo() {
 	}
 	async function toggleLiked() {
 		try {
+			console.log("video id", videoid);
+
 			const like = await axios.post(
 				`${backendurl}/likes/toggle/v/${videoid}`,
 				null,
+
 				{
 					withCredentials: true,
-					Authorization: `Bearer ${cookies.accessToken}`, // Ensure cookies are included in the request
+					headers: {
+
+						Authorization: `Bearer ${cookies.accessToken}`, // Ensure cookies are included in the request
+					},
 				}
 			);
 			if (like) {
@@ -132,7 +145,10 @@ function DetailedVideo() {
 				null,
 				{
 					withCredentials: true,
-					Authorization: `Bearer ${cookies.accessToken}`, // Ensure cookies are included in the request
+					headers: {
+						
+						Authorization: `Bearer ${cookies.accessToken}`, // Set the content type to JSON
+					}, // Ensure cookies are included in the request
 				}
 			);
 			if (res) {
@@ -163,7 +179,10 @@ function DetailedVideo() {
 				null,
 				{
 					withCredentials: true,
-					Authorization: `Bearer ${cookies.accessToken}`, // Ensure cookies are included in the request
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: `Bearer ${cookies.accessToken}`, // Set the content type to JSON
+					}, // Ensure cookies are included in the request
 				}
 			);
 			if (res) {
@@ -181,7 +200,6 @@ function DetailedVideo() {
 		}
 	}
 
-
 	async function getCurrentUser() {
 		try {
 			const res = await axios.get(
@@ -194,7 +212,10 @@ function DetailedVideo() {
 					},
 				}
 			);
-			console.log("current user in detailed video", res.data);
+			console.log(
+				"current user in detailed video",
+				res.data
+			);
 			setuserdata(res.data);
 			// console.log(user);
 		} catch (error) {
