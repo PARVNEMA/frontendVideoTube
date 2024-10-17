@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useCookies } from "react-cookie";
-import { useAuth } from "./hooks/Logincontext.jsx";
+import { useAuth } from "./Logincontext.jsx";
 
 function Sidebar() {
 	const backendUrl = import.meta.env.VITE_URL;

@@ -5,7 +5,8 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { useAuth } from "./hooks/Logincontext.jsx";
+import { useAuth } from "./Logincontext";
+
 function Navbar() {
 	const [data, setdata] = useState(null);
 	const [loggedin, setLoggedIn] = useState(false);

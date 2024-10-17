@@ -29,7 +29,8 @@ import WatchHistory from "./Pages/WatchHistory.jsx";
 import UpdateVideo from "./Pages/UpdateVideo.jsx";
 import Tweets from "./Pages/Tweets.jsx";
 import UserVideos from "./Pages/UserVideos.jsx";
-import { AuthProvider } from "./hooks/LoginContext.jsx";
+import { AuthProvider } from "./Components/Logincontext.jsx";
+
 
 const router = createBrowserRouter([
 	{
