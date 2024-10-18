@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useAuth } from "./Logincontext";
@@ -132,27 +132,76 @@ function Navbar() {
 									className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
 								>
 									<li>
-										<Link
-											className="justify-between"
-											to={"/userprofile"}
-										>
-											Profile
-											<span className="badge">New</span>
-										</Link>
-									</li>
-									<li>
-										<Link
-											className="justify-between"
-											to={"/watchhistory"}
-										>
-											Watch History
-											<span className="badge"></span>
-										</Link>
-									</li>
-									<li>
+									<NavLink
+										className="justify-between btn  btn-outline"
+										to={"/userprofile"}
+										style={({ isActive }) => {
+											return isActive
+												? { backgroundColor: "indigo" }
+												: { color: "gray" };
+										}}
+									>
+										View Profile
+									</NavLink>
+								</li>
+								<li>
+									<NavLink
+										className="justify-between btn btn-outline"
+										to={"/watchhistory"}
+										style={({ isActive }) => {
+											return isActive
+												? { backgroundColor: "indigo" }
+												: { color: "gray" };
+										}}
+									>
+										Watch History
+									</NavLink>
+								</li>
+
+
+								<li>
+									<NavLink
+										className="justify-between btn  btn-outline"
+										to={"/publishvideo"}
+										style={({ isActive }) => {
+											return isActive
+												? { backgroundColor: "indigo" }
+												: { color: "gray" };
+										}}
+									>
+										Publish Video
+									</NavLink>
+								</li>
+								<li>
+									<NavLink
+										className="justify-between btn  btn-outline"
+										to={"/uservideos"}
+										style={({ isActive }) => {
+											return isActive
+												? { backgroundColor: "indigo" }
+												: { color: "gray" };
+										}}
+									>
+										User Videos
+									</NavLink>
+								</li>
+								<li>
+									<NavLink
+										className="justify-between btn  btn-outline"
+										to={"/tweets"}
+										style={({ isActive }) => {
+											return isActive
+												? { backgroundColor: "indigo" }
+												: { color: "gray" };
+										}}
+									>
+										Tweet
+									</NavLink>
+								</li>
+								<li>
 										<button
 											onClick={logout}
-											className="text-red-500 "
+											className="btn btn-error "
 										>
 											Logout
 										</button>
