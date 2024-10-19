@@ -54,31 +54,23 @@ function Sidebar() {
 		getCurrentUser();
 	}, [loggedin, state.isLoggedIn]);
 	return (
-		<div className="h-full w-max">
+		<div className="h-full w-[20vw]">
 			{state.isLoggedIn ? (
 				<>
-					<div className="drawer lg:drawer-open ">
+					<div className="drawer lg:drawer-open w-full ">
 						<input
 							id="my-drawer-2"
 							type="checkbox"
 							className="drawer-toggle"
 						/>
-						<div className="drawer-content flex flex-col items-center justify-center">
-							{/* Page content here */}
-							<label
-								htmlFor="my-drawer-2"
-								className="btn btn-primary drawer-button lg:hidden"
-							>
-								Open drawer
-							</label>
-						</div>
-						<div className="drawer-side">
+
+						<div className="drawer-side w-full">
 							<label
 								htmlFor="my-drawer-2"
 								aria-label="close sidebar"
 								className="drawer-overlay"
 							></label>
-							<ul className="menu  text-base-content min-h-full w-80 p-4 gap-2">
+							<ul className="menu  text-base-content min-h-full w-[20vw] p-4 pt-8 gap-2">
 								{/* Sidebar content here */}
 								<li>
 									<NavLink
@@ -170,11 +162,12 @@ function Sidebar() {
 				</>
 			) : (
 				<>
-					<div className="h-[90vh] flex flex-col items-center justify-center gap-6  ">
+					<div className="h-[90vh]  w-[20vw] flex flex-col items-center
+					justify-center 		  ">
 						<img
 							src="/logo.png"
 							alt="Nature Tube"
-							className="h-80 w-70"
+							className="h-[40vh] w-[16vw]"
 						/>
 						<p className="font-medium">
 							Login/Signup to have more accessibility

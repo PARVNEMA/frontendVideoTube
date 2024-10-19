@@ -9,7 +9,7 @@ function App() {
 				<Navbar />
 			</div>
 			<div className="flex flex-grow">
-				<div className="hidden md:block md:w-1/4 md:h-full md:sticky md:top-20 md:border-r-2 md:border-purple-500">
+				<div className="hidden md:block  md:w-1/5 md:h-full md:sticky md:top-20 md:border-r-2 md:border-purple-500">
 					<Sidebar />
 				</div>
 				<main className="flex-grow p-2">
